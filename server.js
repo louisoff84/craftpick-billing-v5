@@ -75,6 +75,7 @@ const publicRoutes = require('./routes/public');
 const paymentRoutes = require('./routes/payment');
 const pterodactylRoutes = require('./routes/pterodactyl');
 const pleskRoutes = require('./routes/plesk');
+const adminManagementRoutes = require('./routes/admin-management');
 
 app.use('/', publicRoutes);
 app.use('/auth', authRoutes);
@@ -83,6 +84,7 @@ app.use('/admin', adminRoutes);
 app.use('/payment', paymentRoutes);
 app.use('/api/pterodactyl', pterodactylRoutes);
 app.use('/api/plesk', pleskRoutes);
+app.use('/admin-management', adminManagementRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

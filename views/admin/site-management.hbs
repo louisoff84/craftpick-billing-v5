@@ -1,0 +1,1441 @@
+{{> admin-nav}}
+
+<div class="site-management-page">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="container">
+      <div class="page-header-content">
+        <div class="page-title-section">
+          <h1 class="page-title">Gestion du Site</h1>
+          <p class="page-subtitle">Administration complète du site et des APIs</p>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-success" onclick="deploySite()">
+            <i class="fas fa-rocket"></i> Déployer
+          </button>
+          <button class="btn btn-warning" onclick="toggleMaintenance()">
+            <i class="fas fa-tools"></i> Maintenance
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Management Content -->
+  <div class="management-content">
+    <div class="container">
+      <!-- System Status -->
+      <div class="status-overview">
+        <div class="status-card">
+          <div class="status-header">
+            <h3>État du Système</h3>
+            <span class="status-indicator" id="systemStatus">
+              <i class="fas fa-circle"></i>
+              <span>Vérification...</span>
+            </span>
+          </div>
+          <div class="status-metrics">
+            <div class="metric">
+              <label>Uptime:</label>
+              <span id="uptime">-</span>
+            </div>
+            <div class="metric">
+              <label>Mémoire:</label>
+              <span id="memory">-</span>
+            </div>
+            <div class="metric">
+              <label>CPU:</label>
+              <span id="cpu">-</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Management Tabs -->
+      <div class="management-tabs">
+        <div class="tab-nav">
+          <button class="tab-btn active" onclick="showTab('config')">
+            <i class="fas fa-cog"></i> Configuration
+          </button>
+          <button class="tab-btn" onclick="showTab('apis')">
+            <i class="fas fa-plug"></i> APIs
+          </button>
+          <button class="tab-btn" onclick="showTab('backups')">
+            <i class="fas fa-save"></i> Sauvegardes
+          </button>
+          <button class="tab-btn" onclick="showTab('logs')">
+            <i class="fas fa-file-alt"></i> Logs
+          </button>
+          <button class="tab-btn" onclick="showTab('services')">
+            <i class="fas fa-server"></i> Services
+          </button>
+          <button class="tab-btn" onclick="showTab('cache')">
+            <i class="fas fa-broom"></i> Cache
+          </button>
+        </div>
+
+        <!-- Configuration Tab -->
+        <div class="tab-content active" id="config-tab">
+          <div class="config-section">
+            <h4>Configuration Principale</h4>
+            <div class="config-grid">
+              <div class="config-item">
+                <label>Mode Maintenance:</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="maintenanceMode" onchange="updateMaintenanceMode()">
+                  <span class="slider"></span>
+                </div>
+              </div>
+              <div class="config-item">
+                <label>Message Maintenance:</label>
+                <input type="text" id="maintenanceMessage" placeholder="Site en maintenance..." onchange="updateMaintenanceMessage()">
+              </div>
+              <div class="config-item">
+                <label>Mode Debug:</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="debugMode" onchange="updateDebugMode()">
+                  <span class="slider"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="config-section">
+            <h4>API Configuration</h4>
+            <div class="config-grid">
+              <div class="config-item">
+                <label>Pterodactyl URL:</label>
+                <input type="text" id="pterodactylUrl" placeholder="https://panel.example.com" onchange="updateConfig('PTERODACTYL_URL')">
+              </div>
+              <div class="config-item">
+                <label>Plesk URL:</label>
+                <input type="text" id="pleskUrl" placeholder="https://plesk.example.com:8443" onchange="updateConfig('PLESK_URL')">
+              </div>
+              <div class="config-item">
+                <label>PayPal Mode:</label>
+                <select id="paypalMode" onchange="updateConfig('PAYPAL_MODE')">
+                  <option value="sandbox">Sandbox</option>
+                  <option value="live">Live</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="config-actions">
+            <button class="btn btn-primary" onclick="saveConfig()">
+              <i class="fas fa-save"></i> Sauvegarder
+            </button>
+            <button class="btn btn-outline" onclick="createConfigBackup()">
+              <i class="fas fa-download"></i> Backup Config
+            </button>
+          </div>
+        </div>
+
+        <!-- APIs Tab -->
+        <div class="tab-content" id="apis-tab">
+          <div class="api-status-grid">
+            <div class="api-card">
+              <div class="api-header">
+                <h4>Pterodactyl API</h4>
+                <span class="api-status" id="pterodactylStatus">
+                  <i class="fas fa-circle"></i>
+                  <span>Vérification...</span>
+                </span>
+              </div>
+              <div class="api-info">
+                <div class="info-item">
+                  <label>URL:</label>
+                  <span id="pterodactylUrlDisplay">-</span>
+                </div>
+                <div class="info-item">
+                  <label>Statut:</label>
+                  <span id="pterodactylConfigStatus">-</span>
+                </div>
+                <div class="info-item">
+                  <label>Dernière vérification:</label>
+                  <span id="pterodactylLastCheck">-</span>
+                </div>
+              </div>
+              <div class="api-actions">
+                <button class="btn btn-outline" onclick="testAPI('pterodactyl')">
+                  <i class="fas fa-plug"></i> Tester
+                </button>
+                <button class="btn btn-outline" onclick="configureAPI('pterodactyl')">
+                  <i class="fas fa-cog"></i> Configurer
+                </button>
+              </div>
+            </div>
+
+            <div class="api-card">
+              <div class="api-header">
+                <h4>Plesk API</h4>
+                <span class="api-status" id="pleskStatus">
+                  <i class="fas fa-circle"></i>
+                  <span>Vérification...</span>
+                </span>
+              </div>
+              <div class="api-info">
+                <div class="info-item">
+                  <label>URL:</label>
+                  <span id="pleskUrlDisplay">-</span>
+                </div>
+                <div class="info-item">
+                  <label>Statut:</label>
+                  <span id="pleskConfigStatus">-</span>
+                </div>
+                <div class="info-item">
+                  <label>Dernière vérification:</label>
+                  <span id="pleskLastCheck">-</span>
+                </div>
+              </div>
+              <div class="api-actions">
+                <button class="btn btn-outline" onclick="testAPI('plesk')">
+                  <i class="fas fa-plug"></i> Tester
+                </button>
+                <button class="btn btn-outline" onclick="configureAPI('plesk')">
+                  <i class="fas fa-cog"></i> Configurer
+                </button>
+              </div>
+            </div>
+
+            <div class="api-card">
+              <div class="api-header">
+                <h4>PayPal API</h4>
+                <span class="api-status" id="paypalStatus">
+                  <i class="fas fa-circle"></i>
+                  <span>Vérification...</span>
+                </span>
+              </div>
+              <div class="api-info">
+                <div class="info-item">
+                  <label>Mode:</label>
+                  <span id="paypalModeDisplay">-</span>
+                </div>
+                <div class="info-item">
+                  <label>Statut:</label>
+                  <span id="paypalConfigStatus">-</span>
+                </div>
+                <div class="info-item">
+                  <label>Dernière vérification:</label>
+                  <span id="paypalLastCheck">-</span>
+                </div>
+              </div>
+              <div class="api-actions">
+                <button class="btn btn-outline" onclick="testAPI('paypal')">
+                  <i class="fas fa-plug"></i> Tester
+                </button>
+                <button class="btn btn-outline" onclick="configureAPI('paypal')">
+                  <i class="fas fa-cog"></i> Configurer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Backups Tab -->
+        <div class="tab-content" id="backups-tab">
+          <div class="backups-header">
+            <h4>Sauvegardes Système</h4>
+            <div class="backups-actions">
+              <button class="btn btn-primary" onclick="createBackup('config')">
+                <i class="fas fa-save"></i> Backup Config
+              </button>
+              <button class="btn btn-primary" onclick="createBackup('database')">
+                <i class="fas fa-database"></i> Backup DB
+              </button>
+            </div>
+          </div>
+          <div class="backups-list" id="backupsList">
+            <!-- Backups will be loaded here -->
+          </div>
+        </div>
+
+        <!-- Logs Tab -->
+        <div class="tab-content" id="logs-tab">
+          <div class="logs-header">
+            <h4>Logs Système</h4>
+            <div class="logs-controls">
+              <select id="logFile" onchange="loadLogContent()">
+                <option value="">Sélectionner un fichier de log</option>
+              </select>
+              <button class="btn btn-outline" onclick="clearLog()">
+                <i class="fas fa-trash"></i> Vider
+              </button>
+            </div>
+          </div>
+          <div class="log-viewer">
+            <div class="log-content" id="logContent">
+              <p>Sélectionnez un fichier de log pour afficher son contenu</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Services Tab -->
+        <div class="tab-content" id="services-tab">
+          <div class="services-grid">
+            <div class="service-card">
+              <div class="service-header">
+                <h4>Application Node.js</h4>
+                <span class="service-status" id="nodeServiceStatus">
+                  <i class="fas fa-circle"></i>
+                  <span>Vérification...</span>
+                </span>
+              </div>
+              <div class="service-info">
+                <p>Processus principal de l'application</p>
+              </div>
+              <div class="service-actions">
+                <button class="btn btn-success" onclick="restartService('node')">
+                  <i class="fas fa-redo"></i> Redémarrer
+                </button>
+                <button class="btn btn-outline" onclick="viewServiceLogs('node')">
+                  <i class="fas fa-file-alt"></i> Logs
+                </button>
+              </div>
+            </div>
+
+            <div class="service-card">
+              <div class="service-header">
+                <h4>Base de Données</h4>
+                <span class="service-status" id="dbServiceStatus">
+                  <i class="fas fa-circle"></i>
+                  <span>Vérification...</span>
+                </span>
+              </div>
+              <div class="service-info">
+                <p>Service MySQL/MariaDB</p>
+              </div>
+              <div class="service-actions">
+                <button class="btn btn-success" onclick="restartService('mysql')">
+                  <i class="fas fa-redo"></i> Redémarrer
+                </button>
+                <button class="btn btn-outline" onclick="viewServiceLogs('mysql')">
+                  <i class="fas fa-file-alt"></i> Logs
+                </button>
+              </div>
+            </div>
+
+            <div class="service-card">
+              <div class="service-header">
+                <h4>Web Server</h4>
+                <span class="service-status" id="webServiceStatus">
+                  <i class="fas fa-circle"></i>
+                  <span>Vérification...</span>
+                </span>
+              </div>
+              <div class="service-info">
+                <p>Apache/Nginx</p>
+              </div>
+              <div class="service-actions">
+                <button class="btn btn-success" onclick="restartService('apache')">
+                  <i class="fas fa-redo"></i> Redémarrer
+                </button>
+                <button class="btn btn-outline" onclick="viewServiceLogs('apache')">
+                  <i class="fas fa-file-alt"></i> Logs
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cache Tab -->
+        <div class="tab-content" id="cache-tab">
+          <div class="cache-section">
+            <h4>Gestion du Cache</h4>
+            <div class="cache-info">
+              <p>Vider le cache peut améliorer les performances mais ralentira temporairement le site.</p>
+            </div>
+            <div class="cache-actions">
+              <button class="btn btn-warning" onclick="clearCache('all')">
+                <i class="fas fa-broom"></i> Vider Tout le Cache
+              </button>
+              <button class="btn btn-outline" onclick="clearCache('session')">
+                <i class="fas fa-users"></i> Cache Sessions
+              </button>
+              <button class="btn btn-outline" onclick="clearCache('uploads')">
+                <i class="fas fa-upload"></i> Cache Uploads
+              </button>
+              <button class="btn btn-outline" onclick="clearCache('templates')">
+                <i class="fas fa-code"></i> Cache Templates
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Site Management Page Styles */
+.site-management-page {
+  min-height: 100vh;
+  background: var(--gradient-dark);
+  color: var(--light);
+}
+
+.page-header {
+  background: var(--gradient-primary);
+  color: var(--white);
+  padding: calc(80px + var(--spacing-3xl)) 0 var(--spacing-3xl);
+}
+
+.page-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-xl);
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: var(--spacing-sm);
+}
+
+.page-subtitle {
+  font-size: 1.125rem;
+  opacity: 0.9;
+}
+
+.management-content {
+  padding: var(--spacing-3xl) 0;
+}
+
+.status-overview {
+  margin-bottom: var(--spacing-3xl);
+}
+
+.status-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+}
+
+.status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.status-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.status-indicator.online {
+  color: var(--success);
+}
+
+.status-indicator.offline {
+  color: var(--danger);
+}
+
+.status-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.metric label {
+  font-size: 0.875rem;
+  color: var(--gray);
+  font-weight: 600;
+}
+
+.metric span {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.management-tabs {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.tab-nav {
+  display: flex;
+  background: var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: var(--spacing-lg);
+  background: none;
+  border: none;
+  color: var(--gray);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.tab-btn:hover {
+  background: var(--glass-bg);
+  color: var(--white);
+}
+
+.tab-btn.active {
+  background: var(--accent);
+  color: var(--white);
+  border-bottom: 3px solid var(--accent-dark);
+}
+
+.tab-content {
+  display: none;
+  padding: var(--spacing-2xl);
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.config-section {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.config-section h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: var(--spacing-sm);
+}
+
+.config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.config-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.config-item label {
+  font-size: 0.875rem;
+  color: var(--gray);
+  font-weight: 600;
+}
+
+.config-item input,
+.config-item select {
+  padding: var(--spacing-md);
+  background: var(--glass-border);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  color: var(--white);
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+}
+
+.config-item input:focus,
+.config-item select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.1);
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gray);
+  transition: var(--transition-fast);
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background: var(--white);
+  transition: var(--transition-fast);
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background: var(--accent);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.config-actions {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+}
+
+.api-status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--spacing-2xl);
+}
+
+.api-card {
+  background: var(--glass-border);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  transition: all var(--transition-normal);
+}
+
+.api-card:hover {
+  background: var(--glass-bg);
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+.api-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.api-header h4 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.api-status {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.api-status.online {
+  color: var(--success);
+}
+
+.api-status.offline {
+  color: var(--danger);
+}
+
+.api-status.configured {
+  color: var(--info);
+}
+
+.api-info {
+  margin-bottom: var(--spacing-lg);
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.info-item label {
+  font-size: 0.875rem;
+  color: var(--gray);
+  font-weight: 600;
+}
+
+.info-item span {
+  font-size: 0.875rem;
+  color: var(--white);
+}
+
+.api-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.backups-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.backups-header h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.backups-actions {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.backups-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.backup-item {
+  background: var(--glass-border);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all var(--transition-fast);
+}
+
+.backup-item:hover {
+  background: var(--glass-bg);
+  border-color: var(--accent);
+}
+
+.backup-info {
+  flex: 1;
+}
+
+.backup-name {
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: var(--spacing-xs);
+}
+
+.backup-meta {
+  font-size: 0.875rem;
+  color: var(--gray);
+}
+
+.backup-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.logs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.logs-header h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.logs-controls {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.logs-controls select {
+  padding: var(--spacing-md);
+  background: var(--glass-border);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  color: var(--white);
+  font-size: 0.875rem;
+}
+
+.log-viewer {
+  background: var(--dark);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  height: 500px;
+  overflow-y: auto;
+}
+
+.log-content {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--success);
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--spacing-2xl);
+}
+
+.service-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  transition: all var(--transition-normal);
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow);
+  border-color: var(--accent);
+}
+
+.service-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.service-header h4 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.service-info p {
+  color: var(--gray);
+  margin-bottom: var(--spacing-lg);
+}
+
+.service-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.cache-section {
+  text-align: center;
+}
+
+.cache-section h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--spacing-lg);
+}
+
+.cache-info {
+  margin-bottom: var(--spacing-2xl);
+  color: var(--gray);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cache-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+  justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page-header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .tab-nav {
+    flex-wrap: wrap;
+  }
+  
+  .tab-btn {
+    flex: 1 1 50%;
+    min-width: 150px;
+  }
+  
+  .config-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .api-status-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cache-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+</style>
+
+<script>
+let currentConfig = {};
+let currentTab = 'config';
+
+// Load initial data
+document.addEventListener('DOMContentLoaded', () => {
+  loadSystemStatus();
+  loadConfig();
+  loadAPIStatus();
+  loadBackups();
+  loadLogs();
+  setupEventListeners();
+});
+
+async function loadSystemStatus() {
+  try {
+    const response = await fetch('/admin-management/health', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      updateSystemStatus(data.data);
+    }
+  } catch (error) {
+    console.error('Error loading system status:', error);
+  }
+}
+
+function updateSystemStatus(status) {
+  const statusElement = document.getElementById('systemStatus');
+  const uptimeElement = document.getElementById('uptime');
+  const memoryElement = document.getElementById('memory');
+  const cpuElement = document.getElementById('cpu');
+  
+  if (status.status === 'healthy') {
+    statusElement.className = 'status-indicator online';
+    statusElement.innerHTML = '<i class="fas fa-circle"></i><span>En ligne</span>';
+  } else {
+    statusElement.className = 'status-indicator offline';
+    statusElement.innerHTML = '<i class="fas fa-circle"></i><span>Hors ligne</span>';
+  }
+  
+  if (status.uptime) {
+    const hours = Math.floor(status.uptime / 3600);
+    const minutes = Math.floor((status.uptime % 3600) / 60);
+    uptimeElement.textContent = `${hours}h ${minutes}m`;
+  }
+  
+  if (status.memory) {
+    const usedMB = Math.round(status.memory.used / 1024 / 1024);
+    const totalMB = Math.round(status.memory.total / 1024 / 1024);
+    memoryElement.textContent = `${usedMB}MB / ${totalMB}MB`;
+  }
+  
+  if (status.cpu) {
+    cpuElement.textContent = `${Math.round(status.cpu.user)}%`;
+  }
+}
+
+async function loadConfig() {
+  try {
+    const response = await fetch('/admin-management/config', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      currentConfig = data.data;
+      populateConfigForm();
+    }
+  } catch (error) {
+    console.error('Error loading config:', error);
+  }
+}
+
+function populateConfigForm() {
+  document.getElementById('pterodactylUrl').value = currentConfig.PTERODACTYL_URL || '';
+  document.getElementById('pleskUrl').value = currentConfig.PLESK_URL || '';
+  document.getElementById('paypalMode').value = currentConfig.PAYPAL_MODE || 'sandbox';
+  document.getElementById('maintenanceMode').checked = currentConfig.MAINTENANCE_MODE === 'true';
+  document.getElementById('maintenanceMessage').value = currentConfig.MAINTENANCE_MESSAGE || '';
+  document.getElementById('debugMode').checked = currentConfig.NODE_ENV === 'development';
+}
+
+async function loadAPIStatus() {
+  try {
+    const response = await fetch('/admin-management/api/status', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      updateAPIStatus(data.data);
+    }
+  } catch (error) {
+    console.error('Error loading API status:', error);
+  }
+}
+
+function updateAPIStatus(apiStatus) {
+  // Pterodactyl
+  const pterodactylStatus = document.getElementById('pterodactylStatus');
+  const pterodactylUrlDisplay = document.getElementById('pterodactylUrlDisplay');
+  const pterodactylConfigStatus = document.getElementById('pterodactylConfigStatus');
+  
+  if (apiStatus.pterodactyl.configured) {
+    pterodactylStatus.className = 'api-status configured';
+    pterodactylStatus.innerHTML = '<i class="fas fa-circle"></i><span>Configuré</span>';
+    pterodactylUrlDisplay.textContent = apiStatus.pterodactyl.url;
+    pterodactylConfigStatus.textContent = 'Actif';
+  } else {
+    pterodactylStatus.className = 'api-status offline';
+    pterodactylStatus.innerHTML = '<i class="fas fa-circle"></i><span>Non configuré</span>';
+    pterodactylUrlDisplay.textContent = 'N/A';
+    pterodactylConfigStatus.textContent = 'Inactif';
+  }
+  
+  // Plesk
+  const pleskStatus = document.getElementById('pleskStatus');
+  const pleskUrlDisplay = document.getElementById('pleskUrlDisplay');
+  const pleskConfigStatus = document.getElementById('pleskConfigStatus');
+  
+  if (apiStatus.plesk.configured) {
+    pleskStatus.className = 'api-status configured';
+    pleskStatus.innerHTML = '<i class="fas fa-circle"></i><span>Configuré</span>';
+    pleskUrlDisplay.textContent = apiStatus.plesk.url;
+    pleskConfigStatus.textContent = 'Actif';
+  } else {
+    pleskStatus.className = 'api-status offline';
+    pleskStatus.innerHTML = '<i class="fas fa-circle"></i><span>Non configuré</span>';
+    pleskUrlDisplay.textContent = 'N/A';
+    pleskConfigStatus.textContent = 'Inactif';
+  }
+  
+  // PayPal
+  const paypalStatus = document.getElementById('paypalStatus');
+  const paypalModeDisplay = document.getElementById('paypalModeDisplay');
+  const paypalConfigStatus = document.getElementById('paypalConfigStatus');
+  
+  if (apiStatus.paypal.configured) {
+    paypalStatus.className = 'api-status configured';
+    paypalStatus.innerHTML = '<i class="fas fa-circle"></i><span>Configuré</span>';
+    paypalModeDisplay.textContent = apiStatus.paypal.mode;
+    paypalConfigStatus.textContent = 'Actif';
+  } else {
+    paypalStatus.className = 'api-status offline';
+    paypalStatus.innerHTML = '<i class="fas fa-circle"></i><span>Non configuré</span>';
+    paypalModeDisplay.textContent = 'N/A';
+    paypalConfigStatus.textContent = 'Inactif';
+  }
+}
+
+async function loadBackups() {
+  try {
+    const response = await fetch('/admin-management/backups', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      renderBackups(data.data);
+    }
+  } catch (error) {
+    console.error('Error loading backups:', error);
+  }
+}
+
+function renderBackups(backups) {
+  const backupsList = document.getElementById('backupsList');
+  
+  if (backups.length === 0) {
+    backupsList.innerHTML = '<p class="text-center">Aucune sauvegarde trouvée</p>';
+    return;
+  }
+  
+  backupsList.innerHTML = backups.map(backup => `
+    <div class="backup-item">
+      <div class="backup-info">
+        <div class="backup-name">${backup.name}</div>
+        <div class="backup-meta">
+          Type: ${backup.type} • 
+          Taille: ${Math.round(backup.size / 1024)}KB • 
+          Créé: ${new Date(backup.created).toLocaleString()}
+        </div>
+      </div>
+      <div class="backup-actions">
+        <button class="btn btn-outline btn-sm" onclick="downloadBackup('${backup.path}')">
+          <i class="fas fa-download"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="deleteBackup('${backup.name}')">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function loadLogs() {
+  try {
+    const response = await fetch('/admin-management/logs', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      populateLogFiles(data.data);
+    }
+  } catch (error) {
+    console.error('Error loading logs:', error);
+  }
+}
+
+function populateLogFiles(logs) {
+  const logFileSelect = document.getElementById('logFile');
+  
+  logFileSelect.innerHTML = '<option value="">Sélectionner un fichier de log</option>';
+  
+  logs.forEach(log => {
+    const option = document.createElement('option');
+    option.value = log.name;
+    option.textContent = `${log.name} (${Math.round(log.size / 1024)}KB)`;
+    logFileSelect.appendChild(option);
+  });
+}
+
+function showTab(tabName) {
+  // Hide all tabs
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  
+  // Remove active class from all buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  // Show selected tab
+  document.getElementById(`${tabName}-tab`).classList.add('active');
+  
+  // Add active class to clicked button
+  event.target.classList.add('active');
+  
+  currentTab = tabName;
+}
+
+async function saveConfig() {
+  const updates = {
+    PTERODACTYL_URL: document.getElementById('pterodactylUrl').value,
+    PLESK_URL: document.getElementById('pleskUrl').value,
+    PAYPAL_MODE: document.getElementById('paypalMode').value,
+    MAINTENANCE_MODE: document.getElementById('maintenanceMode').checked ? 'true' : 'false',
+    MAINTENANCE_MESSAGE: document.getElementById('maintenanceMessage').value,
+    NODE_ENV: document.getElementById('debugMode').checked ? 'development' : 'production'
+  };
+  
+  try {
+    const response = await fetch('/admin-management/config', {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updates)
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      showNotification('Configuration sauvegardée avec succès', 'success');
+      loadConfig(); // Reload config
+    } else {
+      showNotification('Erreur lors de la sauvegarde', 'error');
+    }
+  } catch (error) {
+    console.error('Error saving config:', error);
+    showNotification('Erreur lors de la sauvegarde', 'error');
+  }
+}
+
+async function createBackup(type) {
+  try {
+    const response = await fetch('/admin-management/backups/create', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ type })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      showNotification('Sauvegarde créée avec succès', 'success');
+      loadBackups(); // Reload backups
+    } else {
+      showNotification('Erreur lors de la création de la sauvegarde', 'error');
+    }
+  } catch (error) {
+    console.error('Error creating backup:', error);
+    showNotification('Erreur lors de la création de la sauvegarde', 'error');
+  }
+}
+
+async function deleteBackup(filename) {
+  if (!confirm('Êtes-vous sûr de vouloir supprimer cette sauvegarde?')) {
+    return;
+  }
+  
+  try {
+    const response = await fetch(`/admin-management/backups/${filename}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      showNotification('Sauvegarde supprimée avec succès', 'success');
+      loadBackups(); // Reload backups
+    } else {
+      showNotification('Erreur lors de la suppression', 'error');
+    }
+  } catch (error) {
+    console.error('Error deleting backup:', error);
+    showNotification('Erreur lors de la suppression', 'error');
+  }
+}
+
+async function loadLogContent() {
+  const logFile = document.getElementById('logFile').value;
+  
+  if (!logFile) return;
+  
+  try {
+    const response = await fetch(`/admin-management/logs/${logFile}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      const logContent = document.getElementById('logContent');
+      logContent.textContent = data.data.content;
+    }
+  } catch (error) {
+    console.error('Error loading log content:', error);
+  }
+}
+
+async function clearLog() {
+  const logFile = document.getElementById('logFile').value;
+  
+  if (!logFile) {
+    showNotification('Veuillez sélectionner un fichier de log', 'warning');
+    return;
+  }
+  
+  if (!confirm(`Êtes-vous sûr de vouloir vider le fichier ${logFile}?`)) {
+    return;
+  }
+  
+  try {
+    const response = await fetch(`/admin-management/logs/${logFile}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      showNotification('Log vidé avec succès', 'success');
+      loadLogContent(); // Reload content
+    } else {
+      showNotification('Erreur lors du vidage du log', 'error');
+    }
+  } catch (error) {
+    console.error('Error clearing log:', error);
+    showNotification('Erreur lors du vidage du log', 'error');
+  }
+}
+
+async function restartService(serviceName) {
+  if (!confirm(`Êtes-vous sûr de vouloir redémarrer le service ${serviceName}?`)) {
+    return;
+  }
+  
+  try {
+    const response = await fetch(`/admin-management/services/${serviceName}/restart`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      showNotification(`Service ${serviceName} redémarré avec succès`, 'success');
+    } else {
+      showNotification('Erreur lors du redémarrage', 'error');
+    }
+  } catch (error) {
+    console.error('Error restarting service:', error);
+    showNotification('Erreur lors du redémarrage', 'error');
+  }
+}
+
+async function clearCache(type) {
+  if (!confirm(`Êtes-vous sûr de vouloir vider le cache ${type}?`)) {
+    return;
+  }
+  
+  try {
+    const response = await fetch('/admin-management/cache/clear', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ type })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      showNotification(`Cache ${type} vidé avec succès`, 'success');
+    } else {
+      showNotification('Erreur lors du vidage du cache', 'error');
+    }
+  } catch (error) {
+    console.error('Error clearing cache:', error);
+    showNotification('Erreur lors du vidage du cache', 'error');
+  }
+}
+
+async function deploySite() {
+  if (!confirm('Êtes-vous sûr de vouloir déployer le site? Cela peut prendre plusieurs minutes.')) {
+    return;
+  }
+  
+  try {
+    const response = await fetch('/admin-management/deploy', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      showNotification('Déploiement terminé avec succès', 'success');
+    } else {
+      showNotification('Erreur lors du déploiement', 'error');
+    }
+  } catch (error) {
+    console.error('Error deploying site:', error);
+    showNotification('Erreur lors du déploiement', 'error');
+  }
+}
+
+async function toggleMaintenance() {
+  try {
+    const response = await fetch('/admin-management/maintenance/toggle', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        enabled: !document.getElementById('maintenanceMode').checked,
+        message: document.getElementById('maintenanceMessage').value
+      })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      showNotification(data.message, 'success');
+      loadConfig(); // Reload config
+    } else {
+      showNotification('Erreur lors de la modification du mode maintenance', 'error');
+    }
+  } catch (error) {
+    console.error('Error toggling maintenance:', error);
+    showNotification('Erreur lors de la modification du mode maintenance', 'error');
+  }
+}
+
+function setupEventListeners() {
+  // Auto-refresh system status every 30 seconds
+  setInterval(loadSystemStatus, 30000);
+  
+  // Auto-refresh API status every 60 seconds
+  setInterval(loadAPIStatus, 60000);
+}
+
+function showNotification(message, type) {
+  // Use global notification system
+  if (window.craftpick) {
+    window.craftpick.showNotification(message, type);
+  } else {
+    alert(message);
+  }
+}
+</script>
