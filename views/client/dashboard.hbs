@@ -1,0 +1,1124 @@
+<div class="dashboard-container">
+  <!-- Dashboard Header -->
+  <div class="dashboard-header">
+    <div class="container">
+      <div class="dashboard-header-content">
+        <div class="welcome-section">
+          <h1 class="welcome-title">Welcome back, {{user.firstName}}! 👋</h1>
+          <p class="welcome-subtitle">Manage your hosting services and monitor your performance</p>
+        </div>
+        <div class="quick-actions">
+          <button class="btn btn-primary" onclick="showModal('newServiceModal')">
+            <i class="fas fa-plus"></i> Add Service
+          </button>
+          <button class="btn btn-outline" onclick="showModal('supportModal')">
+            <i class="fas fa-headset"></i> Get Support
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Overview -->
+  <div class="stats-overview">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card animate-fadeInUp">
+          <div class="stat-icon">
+            <i class="fas fa-server"></i>
+          </div>
+          <div class="stat-content">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Active Services</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i> 2 this month
+            </div>
+          </div>
+        </div>
+        
+        <div class="stat-card animate-fadeInUp" style="animation-delay: 0.1s">
+          <div class="stat-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <div class="stat-content">
+            <div class="stat-number">24</div>
+            <div class="stat-label">Websites Hosted</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i> 5 this month
+            </div>
+          </div>
+        </div>
+        
+        <div class="stat-card animate-fadeInUp" style="animation-delay: 0.2s">
+          <div class="stat-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="stat-content">
+            <div class="stat-number">99.9%</div>
+            <div class="stat-label">Uptime</div>
+            <div class="stat-change neutral">
+              <i class="fas fa-minus"></i> Stable
+            </div>
+          </div>
+        </div>
+        
+        <div class="stat-card animate-fadeInUp" style="animation-delay: 0.3s">
+          <div class="stat-icon">
+            <i class="fas fa-euro-sign"></i>
+          </div>
+          <div class="stat-content">
+            <div class="stat-number">€247</div>
+            <div class="stat-label">Monthly Cost</div>
+            <div class="stat-change negative">
+              <i class="fas fa-arrow-up"></i> €12 increase
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Dashboard Content -->
+  <div class="dashboard-content">
+    <div class="container">
+      <div class="dashboard-grid">
+        <!-- Services Section -->
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2 class="section-title">Your Services</h2>
+            <a href="/client/services" class="btn btn-ghost btn-sm">View All</a>
+          </div>
+          
+          <div class="services-list">
+            <div class="service-item animate-fadeInUp">
+              <div class="service-info">
+                <div class="service-icon">
+                  <i class="fas fa-globe"></i>
+                </div>
+                <div class="service-details">
+                  <h3 class="service-name">Professional Hosting</h3>
+                  <p class="service-domain">mywebsite.com</p>
+                  <div class="service-status">
+                    <span class="status-badge status-active">Active</span>
+                    <span class="service-uptime">99.9% uptime</span>
+                  </div>
+                </div>
+              </div>
+              <div class="service-actions">
+                <button class="btn btn-outline btn-sm">Manage</button>
+                <button class="btn btn-ghost btn-sm">Details</button>
+              </div>
+            </div>
+
+            <div class="service-item animate-fadeInUp" style="animation-delay: 0.1s">
+              <div class="service-info">
+                <div class="service-icon">
+                  <i class="fas fa-server"></i>
+                </div>
+                <div class="service-details">
+                  <h3 class="service-name">VPS Pro</h3>
+                  <p class="service-domain">vps-12345.craftpick.com</p>
+                  <div class="service-status">
+                    <span class="status-badge status-active">Active</span>
+                    <span class="service-uptime">100% uptime</span>
+                  </div>
+                </div>
+              </div>
+              <div class="service-actions">
+                <button class="btn btn-outline btn-sm">Manage</button>
+                <button class="btn btn-ghost btn-sm">Details</button>
+              </div>
+            </div>
+
+            <div class="service-item animate-fadeInUp" style="animation-delay: 0.2s">
+              <div class="service-info">
+                <div class="service-icon">
+                  <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="service-details">
+                  <h3 class="service-name">SSL Certificate</h3>
+                  <p class="service-domain">*.mywebsite.com</p>
+                  <div class="service-status">
+                    <span class="status-badge status-warning">Expiring Soon</span>
+                    <span class="service-uptime">Expires in 15 days</span>
+                  </div>
+                </div>
+              </div>
+              <div class="service-actions">
+                <button class="btn btn-primary btn-sm">Renew</button>
+                <button class="btn btn-ghost btn-sm">Details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2 class="section-title">Recent Activity</h2>
+            <a href="/client/activity" class="btn btn-ghost btn-sm">View All</a>
+          </div>
+          
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i class="fas fa-plus-circle text-success"></i>
+              </div>
+              <div class="activity-content">
+                <p class="activity-title">New service added</p>
+                <p class="activity-description">Professional Hosting plan activated</p>
+                <span class="activity-time">2 hours ago</span>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i class="fas fa-credit-card text-info"></i>
+              </div>
+              <div class="activity-content">
+                <p class="activity-title">Payment processed</p>
+                <p class="activity-description">Monthly invoice #12345 paid</p>
+                <span class="activity-time">1 day ago</span>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i class="fas fa-cog text-warning"></i>
+              </div>
+              <div class="activity-content">
+                <p class="activity-title">Service updated</p>
+                <p class="activity-description">VPS configuration modified</p>
+                <span class="activity-time">3 days ago</span>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i class="fas fa-shield-alt text-success"></i>
+              </div>
+              <div class="activity-content">
+                <p class="activity-title">SSL renewed</p>
+                <p class="activity-description">Certificate renewed for 1 year</p>
+                <span class="activity-time">1 week ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2 class="section-title">Performance Overview</h2>
+          </div>
+          
+          <div class="performance-metrics">
+            <div class="metric-card">
+              <div class="metric-header">
+                <h3>Server Response Time</h3>
+                <span class="metric-value">245ms</span>
+              </div>
+              <div class="metric-chart">
+                <div class="chart-bar" style="height: 60%"></div>
+              </div>
+              <div class="metric-status good">
+                <i class="fas fa-check-circle"></i> Excellent
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <h3>Bandwidth Usage</h3>
+                <span class="metric-value">67%</span>
+              </div>
+              <div class="metric-chart">
+                <div class="chart-bar" style="height: 67%"></div>
+              </div>
+              <div class="metric-status warning">
+                <i class="fas fa-exclamation-triangle"></i> Monitor
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <h3>Storage Usage</h3>
+                <span class="metric-value">45%</span>
+              </div>
+              <div class="metric-chart">
+                <div class="chart-bar" style="height: 45%"></div>
+              </div>
+              <div class="metric-status good">
+                <i class="fas fa-check-circle"></i> Normal
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Support Tickets -->
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2 class="section-title">Support Tickets</h2>
+            <a href="/client/support" class="btn btn-ghost btn-sm">View All</a>
+          </div>
+          
+          <div class="tickets-list">
+            <div class="ticket-item">
+              <div class="ticket-status">
+                <span class="status-badge status-open">Open</span>
+              </div>
+              <div class="ticket-content">
+                <h4 class="ticket-title">Domain transfer issue</h4>
+                <p class="ticket-description">Need help transferring my domain...</p>
+                <span class="ticket-time">Updated 2 hours ago</span>
+              </div>
+              <div class="ticket-priority">
+                <span class="priority-badge priority-high">High</span>
+              </div>
+            </div>
+
+            <div class="ticket-item">
+              <div class="ticket-status">
+                <span class="status-badge status-pending">Pending</span>
+              </div>
+              <div class="ticket-content">
+                <h4 class="ticket-title">SSL installation</h4>
+                <p class="ticket-description">Request for SSL certificate setup...</p>
+                <span class="ticket-time">Updated 1 day ago</span>
+              </div>
+              <div class="ticket-priority">
+                <span class="priority-badge priority-medium">Medium</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modals -->
+<div class="modal" id="newServiceModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Add New Service</h3>
+      <button class="modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="service-options">
+        <div class="service-option">
+          <div class="service-option-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <div class="service-option-content">
+            <h4>Web Hosting</h4>
+            <p>Perfect for websites and blogs</p>
+            <span class="service-price">From €4.99/month</span>
+          </div>
+          <button class="btn btn-primary">Choose Plan</button>
+        </div>
+
+        <div class="service-option">
+          <div class="service-option-icon">
+            <i class="fas fa-server"></i>
+          </div>
+          <div class="service-option-content">
+            <h4>VPS Hosting</h4>
+            <p>Full control with virtual private servers</p>
+            <span class="service-price">From €29.99/month</span>
+          </div>
+          <button class="btn btn-primary">Choose Plan</button>
+        </div>
+
+        <div class="service-option">
+          <div class="service-option-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="service-option-content">
+            <h4>SSL Certificates</h4>
+            <p>Secure your website with HTTPS</p>
+            <span class="service-price">From €49.99/year</span>
+          </div>
+          <button class="btn btn-primary">Choose Plan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="supportModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Get Support</h3>
+      <button class="modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form class="support-form">
+        <div class="form-group">
+          <label for="supportType">Support Type</label>
+          <select id="supportType" class="form-control">
+            <option value="">Select type...</option>
+            <option value="technical">Technical Support</option>
+            <option value="billing">Billing Question</option>
+            <option value="sales">Sales Inquiry</option>
+            <option value="general">General Question</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="supportSubject">Subject</label>
+          <input type="text" id="supportSubject" class="form-control" placeholder="Brief description of your issue">
+        </div>
+
+        <div class="form-group">
+          <label for="supportMessage">Message</label>
+          <textarea id="supportMessage" class="form-control" rows="5" placeholder="Describe your issue in detail..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="supportPriority">Priority</label>
+          <select id="supportPriority" class="form-control">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+            <option value="urgent">Urgent</option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" onclick="closeModal('supportModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Ticket</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Dashboard Styles */
+.dashboard-container {
+  min-height: 100vh;
+  background: var(--light);
+}
+
+.dashboard-header {
+  background: var(--gradient-primary);
+  color: var(--white);
+  padding: var(--spacing-3xl) 0;
+  margin-top: 70px;
+}
+
+.dashboard-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-xl);
+}
+
+.welcome-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: var(--spacing-sm);
+}
+
+.welcome-subtitle {
+  font-size: 1.125rem;
+  opacity: 0.9;
+}
+
+.quick-actions {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.stats-overview {
+  padding: var(--spacing-2xl) 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-lighter);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-xl);
+}
+
+.stat-card {
+  background: var(--white);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gray-lighter);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  transition: all var(--transition-normal);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.stat-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.stat-label {
+  color: var(--gray);
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.stat-change {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.stat-change.positive {
+  color: var(--success);
+}
+
+.stat-change.negative {
+  color: var(--danger);
+}
+
+.stat-change.neutral {
+  color: var(--gray);
+}
+
+.dashboard-content {
+  padding: var(--spacing-2xl) 0;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-2xl);
+}
+
+.dashboard-section {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gray-lighter);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--gray-lighter);
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.services-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.service-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg);
+  background: var(--lighter);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-lighter);
+  transition: all var(--transition-fast);
+}
+
+.service-item:hover {
+  background: var(--light);
+  border-color: var(--primary-light);
+}
+
+.service-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex: 1;
+}
+
+.service-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--gradient-secondary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.service-details h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.service-domain {
+  font-size: 0.875rem;
+  color: var(--gray);
+  margin-bottom: var(--spacing-sm);
+}
+
+.service-status {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  font-size: 0.75rem;
+}
+
+.status-badge {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.status-active {
+  background: var(--success);
+  color: var(--white);
+}
+
+.status-warning {
+  background: var(--warning);
+  color: var(--white);
+}
+
+.status-open {
+  background: var(--info);
+  color: var(--white);
+}
+
+.status-pending {
+  background: var(--gray);
+  color: var(--white);
+}
+
+.service-uptime {
+  color: var(--gray);
+}
+
+.service-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast);
+}
+
+.activity-item:hover {
+  background: var(--lighter);
+}
+
+.activity-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.activity-description {
+  font-size: 0.75rem;
+  color: var(--gray);
+  margin-bottom: var(--spacing-xs);
+}
+
+.activity-time {
+  font-size: 0.75rem;
+  color: var(--gray-light);
+}
+
+.performance-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.metric-card {
+  padding: var(--spacing-lg);
+  background: var(--lighter);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-lighter);
+}
+
+.metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.metric-header h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.metric-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.metric-chart {
+  height: 8px;
+  background: var(--gray-lighter);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--spacing-md);
+  overflow: hidden;
+}
+
+.chart-bar {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
+}
+
+.metric-status {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.metric-status.good {
+  color: var(--success);
+}
+
+.metric-status.warning {
+  color: var(--warning);
+}
+
+.tickets-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.ticket-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--lighter);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-lighter);
+  transition: all var(--transition-fast);
+}
+
+.ticket-item:hover {
+  background: var(--light);
+  border-color: var(--primary-light);
+}
+
+.ticket-content {
+  flex: 1;
+}
+
+.ticket-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.ticket-description {
+  font-size: 0.75rem;
+  color: var(--gray);
+  margin-bottom: var(--spacing-xs);
+}
+
+.ticket-time {
+  font-size: 0.75rem;
+  color: var(--gray-light);
+}
+
+.priority-badge {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.priority-high {
+  background: var(--danger);
+  color: var(--white);
+}
+
+.priority-medium {
+  background: var(--warning);
+  color: var(--white);
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-normal);
+}
+
+.modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: scale(0.9);
+  transition: transform var(--transition-normal);
+}
+
+.modal.show .modal-content {
+  transform: scale(1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--gray);
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.modal-close:hover {
+  background: var(--lighter);
+  color: var(--dark);
+}
+
+.service-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.service-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background: var(--lighter);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-lighter);
+  transition: all var(--transition-fast);
+}
+
+.service-option:hover {
+  background: var(--light);
+  border-color: var(--primary-light);
+}
+
+.service-option-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.service-option-content {
+  flex: 1;
+}
+
+.service-option-content h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.service-option-content p {
+  font-size: 0.875rem;
+  color: var(--gray);
+  margin-bottom: var(--spacing-sm);
+}
+
+.service-price {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.support-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.form-control {
+  padding: var(--spacing-md);
+  border: 2px solid var(--gray-lighter);
+  border-radius: var(--radius-lg);
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .quick-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .service-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+  
+  .service-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  .welcome-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-section {
+    padding: var(--spacing-lg);
+  }
+  
+  .modal-content {
+    padding: var(--spacing-lg);
+  }
+}
+</style>
+
+<script>
+// Dashboard JavaScript
+function showModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+}
+
+// Close modals on escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const openModal = document.querySelector('.modal.show');
+    if (openModal) {
+      openModal.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  }
+});
+
+// Close modals on overlay click
+document.querySelectorAll('.modal').forEach(modal => {
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  });
+});
+
+// Support form submission
+document.querySelector('.support-form')?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  // Show loading state
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  const originalText = submitBtn.textContent;
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+  
+  // Simulate API call
+  setTimeout(() => {
+    closeModal('supportModal');
+    window.craftpick?.showNotification('Support ticket submitted successfully!', 'success');
+    
+    // Reset form
+    e.target.reset();
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalText;
+  }, 2000);
+});
+
+// Service option buttons
+document.querySelectorAll('.service-option button').forEach(button => {
+  button.addEventListener('click', (e) => {
+    const serviceName = e.target.closest('.service-option').querySelector('h4').textContent;
+    window.craftpick?.showNotification(`Redirecting to ${serviceName} plans...`, 'info');
+    
+    // Simulate redirect
+    setTimeout(() => {
+      window.location.href = '/client/order';
+    }, 1500);
+  });
+});
+
+// Initialize dashboard animations
+document.addEventListener('DOMContentLoaded', () => {
+  // Animate stats on scroll
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-fadeInUp');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+  
+  document.querySelectorAll('.stat-card, .dashboard-section').forEach(el => {
+    observer.observe(el);
+  });
+});
+</script>

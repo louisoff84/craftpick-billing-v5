@@ -1,60 +1,139 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}} - CraftPick Hosting</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO Meta Tags -->
+    <title>{{title}} - CraftPick Hosting | Hébergement Web Premium</title>
     <meta name="description" content="{{metaDescription}}">
+    <meta name="keywords" content="hébergement web, hosting, vps, serveur dédié, nom de domaine, ssl, france">
+    <meta name="author" content="CraftPick Hosting">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="{{title}} - CraftPick Hosting">
+    <meta property="og:description" content="{{metaDescription}}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{req.protocol}}://{{req.headers.host}}{{req.originalUrl}}">
+    <meta property="og:image" content="{{req.protocol}}://{{req.headers.host}}/images/og-image.jpg">
+    <meta property="og:site_name" content="CraftPick Hosting">
+    <meta property="og:locale" content="fr_FR">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{title}} - CraftPick Hosting">
+    <meta name="twitter:description" content="{{metaDescription}}">
+    <meta name="twitter:image" content="{{req.protocol}}://{{req.headers.host}}/images/og-image.jpg">
+    <meta name="twitter:site" content="@CraftPickHosting">
+    
+    <!-- Technical Meta -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="application-name" content="CraftPick Hosting">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- CSS -->
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Favicon -->
+    <!-- Favicon and Icons -->
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "CraftPick Hosting",
+        "url": "https://craftpick-hosting.com",
+        "logo": "https://craftpick-hosting.com/images/logo.png",
+        "description": "Hébergement web premium avec support 24/7 et garantie 99.9%",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "FR",
+            "addressLocality": "Paris"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+33-1-23-45-67-89",
+            "contactType": "customer service",
+            "availableLanguage": ["French", "English"]
+        },
+        "sameAs": [
+            "https://facebook.com/craftpickhosting",
+            "https://twitter.com/craftpickhosting",
+            "https://linkedin.com/company/craftpick-hosting"
+        ]
+    }
+    </script>
 </head>
 <body>
+    <!-- Skip to Content for Accessibility -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+    
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Navigation principale">
         <div class="container">
             <div class="nav-brand">
-                <a href="/" class="logo">
+                <a href="/" class="logo" aria-label="CraftPick Hosting - Accueil">
                     <i class="fas fa-server"></i>
                     <span>CraftPick Hosting</span>
                 </a>
             </div>
             
             <div class="nav-menu" id="navMenu">
-                <ul class="nav-links">
-                    <li><a href="/" class="nav-link">Accueil</a></li>
-                    <li><a href="/services" class="nav-link">Services</a></li>
-                    <li><a href="/about" class="nav-link">À Propos</a></li>
-                    <li><a href="/contact" class="nav-link">Contact</a></li>
+                <ul class="nav-links" role="menubar">
+                    <li role="none">
+                        <a href="/" class="nav-link" role="menuitem">Accueil</a>
+                    </li>
+                    <li role="none">
+                        <a href="/services" class="nav-link" role="menuitem">Services</a>
+                    </li>
+                    <li role="none">
+                        <a href="/about" class="nav-link" role="menuitem">À Propos</a>
+                    </li>
+                    <li role="none">
+                        <a href="/contact" class="nav-link" role="menuitem">Contact</a>
+                    </li>
                 </ul>
                 
                 <div class="nav-auth">
                     {{#if user}}
                         <div class="user-menu">
-                            <button class="user-btn" onclick="toggleUserMenu()">
+                            <button class="user-btn" onclick="toggleUserMenu()" aria-expanded="false" aria-haspopup="true">
                                 <i class="fas fa-user"></i>
                                 {{user.firstName}}
                                 <i class="fas fa-chevron-down"></i>
                             </button>
-                            <div class="user-dropdown" id="userDropdown">
-                                <a href="/client/dashboard">
+                            <div class="user-dropdown" id="userDropdown" role="menu">
+                                <a href="/client/dashboard" role="menuitem">
                                     <i class="fas fa-tachometer-alt"></i> Tableau de bord
                                 </a>
-                                <a href="/client/profile">
+                                <a href="/client/profile" role="menuitem">
                                     <i class="fas fa-user-cog"></i> Profil
                                 </a>
-                                <a href="/client/services">
+                                <a href="/client/services" role="menuitem">
                                     <i class="fas fa-server"></i> Mes Services
                                 </a>
-                                <a href="/client/invoices">
+                                <a href="/client/invoices" role="menuitem">
                                     <i class="fas fa-file-invoice"></i> Factures
                                 </a>
                                 <hr>
-                                <a href="/auth/logout" class="logout-btn">
+                                <a href="/auth/logout" class="logout-btn" role="menuitem">
                                     <i class="fas fa-sign-out-alt"></i> Déconnexion
                                 </a>
                             </div>
@@ -66,7 +145,7 @@
                 </div>
             </div>
             
-            <button class="nav-toggle" id="navToggle">
+            <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -76,12 +155,12 @@
     {{> alerts}}
 
     <!-- Main Content -->
-    <main>
+    <main id="main-content" role="main">
         {{{body}}}
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
@@ -91,21 +170,29 @@
                     </div>
                     <p>Votre partenaire de confiance pour tous vos besoins d'hébergement web.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://facebook.com/craftpickhosting" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://twitter.com/craftpickhosting" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://linkedin.com/company/craftpick-hosting" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://instagram.com/craftpickhosting" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
                     </div>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Services</h4>
                     <ul>
-                        <li><a href="/services">Hébergement Web</a></li>
-                        <li><a href="/services">Serveurs VPS</a></li>
-                        <li><a href="/services">Serveurs Dédiés</a></li>
-                        <li><a href="/services">Noms de Domaine</a></li>
-                        <li><a href="/services">Certificats SSL</a></li>
+                        <li><a href="/services/web-hosting">Hébergement Web</a></li>
+                        <li><a href="/services/vps">Serveurs VPS</a></li>
+                        <li><a href="/services/dedicated">Serveurs Dédiés</a></li>
+                        <li><a href="/services/domains">Noms de Domaine</a></li>
+                        <li><a href="/services/ssl">Certificats SSL</a></li>
                     </ul>
                 </div>
                 
@@ -114,20 +201,20 @@
                     <ul>
                         <li><a href="/about">À Propos</a></li>
                         <li><a href="/contact">Contact</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Carrières</a></li>
-                        <li><a href="#">Partenaires</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/careers">Carrières</a></li>
+                        <li><a href="/partners">Partenaires</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Support</h4>
                     <ul>
-                        <li><a href="#">Centre d'aide</a></li>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Tickets</a></li>
-                        <li><a href="#">Statut du service</a></li>
-                        <li><a href="#">API</a></li>
+                        <li><a href="/help">Centre d'aide</a></li>
+                        <li><a href="/docs">Documentation</a></li>
+                        <li><a href="/tickets">Tickets</a></li>
+                        <li><a href="/status">Statut du service</a></li>
+                        <li><a href="/api">API</a></li>
                     </ul>
                 </div>
             </div>
@@ -135,15 +222,54 @@
             <div class="footer-bottom">
                 <p>&copy; 2024 CraftPick Hosting. Tous droits réservés.</p>
                 <div class="footer-links">
-                    <a href="#">Mentions légales</a>
-                    <a href="#">Confidentialité</a>
-                    <a href="#">CGV</a>
+                    <a href="/legal">Mentions légales</a>
+                    <a href="/privacy">Confidentialité</a>
+                    <a href="/terms">CGV</a>
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Performance & Analytics -->
+    <script>
+        // Performance metrics
+        window.addEventListener('load', function() {
+            if ('performance' in window) {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                const metrics = {
+                    domContentLoaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
+                    loadComplete: perfData.loadEventEnd - perfData.loadEventStart,
+                    totalTime: perfData.loadEventEnd - perfData.navigationStart
+                };
+                console.log('Performance Metrics:', metrics);
+            }
+        });
+        
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(function(registrationError) {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+
     <!-- JavaScript -->
+    <script src="/js/components.js"></script>
     <script src="/js/main.js"></script>
+    
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
 </body>
 </html>

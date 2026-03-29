@@ -6,8 +6,6 @@ const morgan = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
 
-const { syncDatabase } = require('./models');
-
 const app = express();
 
 // Middleware
@@ -74,11 +72,17 @@ const authRoutes = require('./routes/auth');
 const clientRoutes = require('./routes/client');
 const adminRoutes = require('./routes/admin');
 const publicRoutes = require('./routes/public');
+const paymentRoutes = require('./routes/payment');
+const pterodactylRoutes = require('./routes/pterodactyl');
+const pleskRoutes = require('./routes/plesk');
 
 app.use('/', publicRoutes);
 app.use('/auth', authRoutes);
 app.use('/client', clientRoutes);
 app.use('/admin', adminRoutes);
+app.use('/payment', paymentRoutes);
+app.use('/api/pterodactyl', pterodactylRoutes);
+app.use('/api/plesk', pleskRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -94,28 +98,18 @@ app.use((req, res) => {
   res.status(404).render('404', { message: 'Page non trouvée' });
 });
 
-// Démarrer le serveur et synchroniser la base de données
+// Démarrer le serveur
 const startServer = async () => {
   try {
     const PORT = process.env.PORT || 3000;
     const HOST = process.env.HOST || '0.0.0.0'; // Écouter sur toutes les interfaces
     
-    // En mode développement, continuer même si la BDD ne répond pas
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('Mode développement - Démarrage sans synchronisation BDD');
-      app.listen(PORT, HOST, () => {
-        console.log(`Serveur démarré sur http://${HOST}:${PORT}`);
-        console.log(`Base de données MySQL: ${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
-        console.log('Mode développement activé');
-      });
-    } else {
-      // En production, synchroniser la base de données
-      await syncDatabase();
-      app.listen(PORT, HOST, () => {
-        console.log(`Serveur démarré sur http://${HOST}:${PORT}`);
-        console.log(`Base de données MySQL: ${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
-      });
-    }
+    console.log('Mode développement - Démarrage sans synchronisation BDD');
+    app.listen(PORT, HOST, () => {
+      console.log(`Serveur démarré sur http://${HOST}:${PORT}`);
+      console.log(`Base de données MySQL: ${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
+      console.log('Mode développement activé');
+    });
   } catch (error) {
     console.error('Erreur au démarrage du serveur:', error);
     process.exit(1);

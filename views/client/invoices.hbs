@@ -1,0 +1,1360 @@
+<div class="invoices-page">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="container">
+      <div class="page-header-content">
+        <div class="page-title-section">
+          <h1 class="page-title">Billing & Invoices</h1>
+          <p class="page-subtitle">Manage your payments and download invoices</p>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-primary" onclick="showModal('paymentModal')">
+            <i class="fas fa-credit-card"></i> Make Payment
+          </button>
+          <button class="btn btn-outline" onclick="exportInvoices()">
+            <i class="fas fa-download"></i> Export All
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Billing Overview -->
+  <div class="billing-overview">
+    <div class="container">
+      <div class="billing-stats">
+        <div class="billing-stat-card">
+          <div class="billing-stat-icon">
+            <i class="fas fa-file-invoice"></i>
+          </div>
+          <div class="billing-stat-content">
+            <div class="billing-stat-number">12</div>
+            <div class="billing-stat-label">Total Invoices</div>
+          </div>
+        </div>
+        
+        <div class="billing-stat-card">
+          <div class="billing-stat-icon">
+            <i class="fas fa-euro-sign"></i>
+          </div>
+          <div class="billing-stat-content">
+            <div class="billing-stat-number">€1,247</div>
+            <div class="billing-stat-label">Total Amount</div>
+          </div>
+        </div>
+        
+        <div class="billing-stat-card">
+          <div class="billing-stat-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="billing-stat-content">
+            <div class="billing-stat-number">3</div>
+            <div class="billing-stat-label">Pending Payment</div>
+          </div>
+        </div>
+        
+        <div class="billing-stat-card">
+          <div class="billing-stat-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="billing-stat-content">
+            <div class="billing-stat-number">9</div>
+            <div class="billing-stat-label">Paid Invoices</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="invoices-content">
+    <div class="container">
+      <!-- Filters and Search -->
+      <div class="invoices-filters">
+        <div class="filter-left">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search invoices..." id="invoiceSearch">
+          </div>
+        </div>
+        <div class="filter-right">
+          <select class="filter-select" id="statusFilter">
+            <option value="">All Status</option>
+            <option value="paid">Paid</option>
+            <option value="pending">Pending</option>
+            <option value="overdue">Overdue</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <select class="filter-select" id="dateFilter">
+            <option value="">All Time</option>
+            <option value="7">Last 7 days</option>
+            <option value="30">Last 30 days</option>
+            <option value="90">Last 90 days</option>
+            <option value="365">Last year</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Invoices Table -->
+      <div class="invoices-table-container">
+        <table class="invoices-table">
+          <thead>
+            <tr>
+              <th>
+                <input type="checkbox" id="selectAll" onchange="toggleSelectAll()">
+                Invoice #
+              </th>
+              <th>Date</th>
+              <th>Due Date</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="invoicesTableBody">
+            <tr class="invoice-row" data-status="paid">
+              <td>
+                <input type="checkbox" class="invoice-checkbox">
+                <span class="invoice-number">#INV-2024-001</span>
+              </td>
+              <td>2024-01-15</td>
+              <td>2024-02-15</td>
+              <td>
+                <div class="invoice-description">
+                  <strong>Professional Hosting</strong>
+                  <span class="invoice-period">Jan 2024 - Feb 2024</span>
+                </div>
+              </td>
+              <td class="invoice-amount">€29.99</td>
+              <td>
+                <span class="status-badge status-paid">Paid</span>
+              </td>
+              <td>
+                <div class="invoice-actions">
+                  <button class="btn btn-sm btn-outline" onclick="downloadInvoice('INV-2024-001')">
+                    <i class="fas fa-download"></i>
+                  </button>
+                  <button class="btn btn-sm btn-ghost" onclick="viewInvoice('INV-2024-001')">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="invoice-row" data-status="pending">
+              <td>
+                <input type="checkbox" class="invoice-checkbox">
+                <span class="invoice-number">#INV-2024-002</span>
+              </td>
+              <td>2024-02-15</td>
+              <td>2024-03-15</td>
+              <td>
+                <div class="invoice-description">
+                  <strong>Professional Hosting</strong>
+                  <span class="invoice-period">Feb 2024 - Mar 2024</span>
+                </div>
+              </td>
+              <td class="invoice-amount">€29.99</td>
+              <td>
+                <span class="status-badge status-pending">Pending</span>
+              </td>
+              <td>
+                <div class="invoice-actions">
+                  <button class="btn btn-sm btn-primary" onclick="payInvoice('INV-2024-002')">
+                    <i class="fas fa-credit-card"></i> Pay
+                  </button>
+                  <button class="btn btn-sm btn-outline" onclick="downloadInvoice('INV-2024-002')">
+                    <i class="fas fa-download"></i>
+                  </button>
+                  <button class="btn btn-sm btn-ghost" onclick="viewInvoice('INV-2024-002')">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="invoice-row" data-status="overdue">
+              <td>
+                <input type="checkbox" class="invoice-checkbox">
+                <span class="invoice-number">#INV-2024-003</span>
+              </td>
+              <td>2024-01-01</td>
+              <td>2024-02-01</td>
+              <td>
+                <div class="invoice-description">
+                  <strong>VPS Pro</strong>
+                  <span class="invoice-period">Jan 2024 - Feb 2024</span>
+                </div>
+              </td>
+              <td class="invoice-amount">€89.99</td>
+              <td>
+                <span class="status-badge status-overdue">Overdue</span>
+              </td>
+              <td>
+                <div class="invoice-actions">
+                  <button class="btn btn-sm btn-primary" onclick="payInvoice('INV-2024-003')">
+                    <i class="fas fa-credit-card"></i> Pay Now
+                  </button>
+                  <button class="btn btn-sm btn-outline" onclick="downloadInvoice('INV-2024-003')">
+                    <i class="fas fa-download"></i>
+                  </button>
+                  <button class="btn btn-sm btn-ghost" onclick="viewInvoice('INV-2024-003')">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="invoice-row" data-status="paid">
+              <td>
+                <input type="checkbox" class="invoice-checkbox">
+                <span class="invoice-number">#INV-2023-012</span>
+              </td>
+              <td>2023-12-15</td>
+              <td>2024-01-15</td>
+              <td>
+                <div class="invoice-description">
+                  <strong>SSL Certificate</strong>
+                  <span class="invoice-period">Annual Renewal</span>
+                </div>
+              </td>
+              <td class="invoice-amount">€49.99</td>
+              <td>
+                <span class="status-badge status-paid">Paid</span>
+              </td>
+              <td>
+                <div class="invoice-actions">
+                  <button class="btn btn-sm btn-outline" onclick="downloadInvoice('INV-2023-012')">
+                    <i class="fas fa-download"></i>
+                  </button>
+                  <button class="btn btn-sm btn-ghost" onclick="viewInvoice('INV-2023-012')">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Bulk Actions -->
+      <div class="bulk-actions" id="bulkActions" style="display: none;">
+        <div class="bulk-actions-content">
+          <span class="selected-count">
+            <span id="selectedCount">0</span> invoices selected
+          </span>
+          <div class="bulk-actions-buttons">
+            <button class="btn btn-outline btn-sm" onclick="downloadSelected()">
+              <i class="fas fa-download"></i> Download Selected
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="paySelected()">
+              <i class="fas fa-credit-card"></i> Pay Selected
+            </button>
+            <button class="btn btn-ghost btn-sm" onclick="clearSelection()">
+              Clear Selection
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <button class="btn btn-ghost btn-sm" onclick="changePage('prev')">
+          <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <div class="page-numbers">
+          <button class="btn btn-sm btn-primary">1</button>
+          <button class="btn btn-sm btn-ghost">2</button>
+          <button class="btn btn-sm btn-ghost">3</button>
+          <span class="page-dots">...</span>
+          <button class="btn btn-sm btn-ghost">12</button>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="changePage('next')">
+          Next <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Modal -->
+<div class="modal" id="paymentModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Make Payment</h3>
+      <button class="modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="payment-summary">
+        <h4>Payment Summary</h4>
+        <div class="payment-items">
+          <div class="payment-item">
+            <span class="item-name">Professional Hosting</span>
+            <span class="item-price">€29.99</span>
+          </div>
+          <div class="payment-item">
+            <span class="item-name">VPS Pro</span>
+            <span class="item-price">€89.99</span>
+          </div>
+        </div>
+        <div class="payment-total">
+          <span>Total Amount:</span>
+          <span class="total-amount">€119.98</span>
+        </div>
+      </div>
+
+      <form class="payment-form">
+        <div class="payment-methods">
+          <h4>Payment Method</h4>
+          <div class="payment-method-options">
+            <label class="payment-method-option">
+              <input type="radio" name="paymentMethod" value="card" checked>
+              <div class="payment-method-card">
+                <i class="fas fa-credit-card"></i>
+                <span>Credit/Debit Card</span>
+              </div>
+            </label>
+            <label class="payment-method-option">
+              <input type="radio" name="paymentMethod" value="paypal">
+              <div class="payment-method-card">
+                <i class="fab fa-paypal"></i>
+                <span>PayPal</span>
+              </div>
+            </label>
+            <label class="payment-method-option">
+              <input type="radio" name="paymentMethod" value="bank">
+              <div class="payment-method-card">
+                <i class="fas fa-university"></i>
+                <span>Bank Transfer</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="card-details" id="cardDetails">
+          <h4>Card Details</h4>
+          <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <div class="input-group">
+              <i class="fas fa-credit-card"></i>
+              <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="expiryDate">Expiry Date</label>
+              <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5">
+            </div>
+            <div class="form-group">
+              <label for="cvv">CVV</label>
+              <input type="text" id="cvv" placeholder="123" maxlength="3">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cardName">Cardholder Name</label>
+            <input type="text" id="cardName" placeholder="John Doe">
+          </div>
+        </div>
+
+        <div class="billing-address">
+          <h4>Billing Address</h4>
+          <div class="form-group">
+            <label for="billingAddress">Address</label>
+            <input type="text" id="billingAddress" placeholder="123 Street Name">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="billingCity">City</label>
+              <input type="text" id="billingCity" placeholder="Paris">
+            </div>
+            <div class="form-group">
+              <label for="billingPostal">Postal Code</label>
+              <input type="text" id="billingPostal" placeholder="75001">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" onclick="closeModal('paymentModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-lock"></i> Secure Payment
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Invoice Details Modal -->
+<div class="modal" id="invoiceModal">
+  <div class="modal-content modal-large">
+    <div class="modal-header">
+      <h3 class="modal-title">Invoice Details</h3>
+      <button class="modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="invoice-preview">
+        <div class="invoice-header">
+          <div class="invoice-logo">
+            <i class="fas fa-server"></i>
+            <span>CraftPick Hosting</span>
+          </div>
+          <div class="invoice-info">
+            <h2>INVOICE</h2>
+            <p class="invoice-number">#INV-2024-002</p>
+            <p class="invoice-date">Date: 2024-02-15</p>
+            <p class="invoice-due">Due: 2024-03-15</p>
+          </div>
+        </div>
+
+        <div class="invoice-parties">
+          <div class="bill-to">
+            <h4>Bill To:</h4>
+            <p>John Doe</p>
+            <p>john.doe@example.com</p>
+            <p>123 Street Name</p>
+            <p>Paris, 75001</p>
+            <p>France</p>
+          </div>
+          <div class="bill-from">
+            <h4>From:</h4>
+            <p>CraftPick Hosting</p>
+            <p>support@craftpick-hosting.com</p>
+            <p>123 Tech Street</p>
+            <p>Paris, 75001</p>
+            <p>France</p>
+          </div>
+        </div>
+
+        <div class="invoice-items">
+          <table>
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Period</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Professional Hosting</td>
+                <td>Feb 2024 - Mar 2024</td>
+                <td>1</td>
+                <td>€29.99</td>
+                <td>€29.99</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="invoice-totals">
+          <div class="totals-row">
+            <span>Subtotal:</span>
+            <span>€29.99</span>
+          </div>
+          <div class="totals-row">
+            <span>Tax (20%):</span>
+            <span>€6.00</span>
+          </div>
+          <div class="totals-row total">
+            <span>Total:</span>
+            <span>€35.99</span>
+          </div>
+        </div>
+
+        <div class="invoice-footer">
+          <p>Thank you for your business!</p>
+          <p>Payment terms: Net 30 days</p>
+        </div>
+      </div>
+
+      <div class="invoice-actions">
+        <button class="btn btn-primary" onclick="downloadInvoice('INV-2024-002')">
+          <i class="fas fa-download"></i> Download PDF
+        </button>
+        <button class="btn btn-outline" onclick="printInvoice()">
+          <i class="fas fa-print"></i> Print
+        </button>
+        <button class="btn btn-ghost" onclick="closeModal('invoiceModal')">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Invoices Page Styles */
+.invoices-page {
+  min-height: 100vh;
+  background: var(--light);
+}
+
+.page-header {
+  background: var(--gradient-primary);
+  color: var(--white);
+  padding: var(--spacing-3xl) 0;
+  margin-top: 70px;
+}
+
+.page-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-xl);
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: var(--spacing-sm);
+}
+
+.page-subtitle {
+  font-size: 1.125rem;
+  opacity: 0.9;
+}
+
+.billing-overview {
+  padding: var(--spacing-2xl) 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-lighter);
+}
+
+.billing-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-xl);
+}
+
+.billing-stat-card {
+  background: var(--white);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gray-lighter);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  transition: all var(--transition-normal);
+}
+
+.billing-stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.billing-stat-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.billing-stat-content {
+  flex: 1;
+}
+
+.billing-stat-number {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.billing-stat-label {
+  color: var(--gray);
+  font-size: 0.875rem;
+}
+
+.invoices-content {
+  padding: var(--spacing-2xl) 0;
+}
+
+.invoices-filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+}
+
+.filter-left {
+  flex: 1;
+  min-width: 300px;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-box i {
+  position: absolute;
+  left: var(--spacing-md);
+  color: var(--gray);
+}
+
+.search-box input {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md) 3rem;
+  border: 2px solid var(--gray-lighter);
+  border-radius: var(--radius-lg);
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.filter-right {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.filter-select {
+  padding: var(--spacing-md);
+  border: 2px solid var(--gray-lighter);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.invoices-table-container {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gray-lighter);
+  overflow: hidden;
+}
+
+.invoices-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoices-table th {
+  background: var(--lighter);
+  padding: var(--spacing-lg);
+  text-align: left;
+  font-weight: 600;
+  color: var(--dark);
+  border-bottom: 1px solid var(--gray-lighter);
+}
+
+.invoices-table td {
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--gray-lighter);
+}
+
+.invoice-row {
+  transition: background var(--transition-fast);
+}
+
+.invoice-row:hover {
+  background: var(--lighter);
+}
+
+.invoice-row td {
+  vertical-align: middle;
+}
+
+.invoice-checkbox {
+  margin-right: var(--spacing-md);
+}
+
+.invoice-number {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.invoice-description strong {
+  display: block;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.invoice-period {
+  font-size: 0.875rem;
+  color: var(--gray);
+}
+
+.invoice-amount {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.status-badge {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status-paid {
+  background: var(--success);
+  color: var(--white);
+}
+
+.status-pending {
+  background: var(--warning);
+  color: var(--white);
+}
+
+.status-overdue {
+  background: var(--danger);
+  color: var(--white);
+}
+
+.status-cancelled {
+  background: var(--gray);
+  color: var(--white);
+}
+
+.invoice-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.bulk-actions {
+  background: var(--primary);
+  color: var(--white);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  margin-top: var(--spacing-lg);
+}
+
+.bulk-actions-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.selected-count {
+  font-weight: 600;
+}
+
+.bulk-actions-buttons {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.bulk-actions .btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.bulk-actions .btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--spacing-xl);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.page-numbers {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.page-dots {
+  padding: 0 var(--spacing-sm);
+  color: var(--gray);
+}
+
+/* Payment Modal Styles */
+.modal-large {
+  max-width: 800px;
+}
+
+.payment-summary {
+  background: var(--lighter);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.payment-summary h4 {
+  margin-bottom: var(--spacing-md);
+  color: var(--dark);
+}
+
+.payment-items {
+  margin-bottom: var(--spacing-lg);
+}
+
+.payment-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+.payment-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--dark);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--gray-lighter);
+}
+
+.payment-methods {
+  margin-bottom: var(--spacing-xl);
+}
+
+.payment-methods h4 {
+  margin-bottom: var(--spacing-md);
+  color: var(--dark);
+}
+
+.payment-method-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.payment-method-option {
+  cursor: pointer;
+}
+
+.payment-method-option input[type="radio"] {
+  display: none;
+}
+
+.payment-method-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg);
+  border: 2px solid var(--gray-lighter);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-fast);
+}
+
+.payment-method-option input[type="radio"]:checked + .payment-method-card {
+  border-color: var(--primary);
+  background: var(--light);
+}
+
+.payment-method-card i {
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+.card-details,
+.billing-address {
+  margin-bottom: var(--spacing-xl);
+}
+
+.card-details h4,
+.billing-address h4 {
+  margin-bottom: var(--spacing-md);
+  color: var(--dark);
+}
+
+.input-group {
+  position: relative;
+}
+
+.input-group i {
+  position: absolute;
+  left: var(--spacing-md);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray);
+}
+
+.input-group input {
+  padding-left: 3rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+/* Invoice Preview Styles */
+.invoice-preview {
+  background: var(--white);
+  border: 1px solid var(--gray-lighter);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-2xl);
+  margin-bottom: var(--spacing-xl);
+}
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-2xl);
+  border-bottom: 2px solid var(--gray-lighter);
+  padding-bottom: var(--spacing-xl);
+}
+
+.invoice-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.invoice-info {
+  text-align: right;
+}
+
+.invoice-info h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: var(--spacing-sm);
+}
+
+.invoice-parties {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-2xl);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.bill-to h4,
+.bill-from h4 {
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: var(--spacing-md);
+}
+
+.bill-to p,
+.bill-from p {
+  margin-bottom: var(--spacing-xs);
+  color: var(--gray);
+}
+
+.invoice-items table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.invoice-items th {
+  background: var(--lighter);
+  padding: var(--spacing-md);
+  text-align: left;
+  font-weight: 600;
+  color: var(--dark);
+  border-bottom: 1px solid var(--gray-lighter);
+}
+
+.invoice-items td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--gray-lighter);
+}
+
+.invoice-totals {
+  max-width: 300px;
+  margin-left: auto;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.totals-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+.totals-row.total {
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--dark);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--gray-lighter);
+}
+
+.invoice-footer {
+  text-align: center;
+  color: var(--gray);
+  border-top: 1px solid var(--gray-lighter);
+  padding-top: var(--spacing-xl);
+}
+
+.invoice-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page-header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .page-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .billing-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .invoices-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .filter-right {
+    flex-direction: column;
+  }
+  
+  .invoice-row {
+    display: block;
+  }
+  
+  .invoice-row td {
+    display: block;
+    padding: var(--spacing-sm);
+    text-align: left;
+  }
+  
+  .invoice-row td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--dark);
+    display: block;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .invoice-actions {
+    margin-top: var(--spacing-md);
+  }
+  
+  .bulk-actions-content {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .payment-method-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .invoice-header {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+  
+  .invoice-parties {
+    grid-template-columns: 1fr;
+  }
+  
+  .invoice-items {
+    overflow-x: auto;
+  }
+}
+</style>
+
+<script>
+// Invoices Page JavaScript
+function showModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+}
+
+function downloadInvoice(invoiceNumber) {
+  window.craftpick?.showNotification(`Downloading invoice ${invoiceNumber}...`, 'info');
+  
+  // Simulate download
+  setTimeout(() => {
+    const invoiceData = {
+      invoiceNumber,
+      date: new Date().toISOString(),
+      amount: '€29.99',
+      status: 'paid'
+    };
+    
+    const blob = new Blob([JSON.stringify(invoiceData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `invoice-${invoiceNumber}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    window.craftpick?.showNotification('Invoice downloaded successfully!', 'success');
+  }, 1000);
+}
+
+function viewInvoice(invoiceNumber) {
+  showModal('invoiceModal');
+  window.craftpick?.showNotification(`Loading invoice ${invoiceNumber}...`, 'info');
+}
+
+function payInvoice(invoiceNumber) {
+  showModal('paymentModal');
+  window.craftpick?.showNotification(`Preparing payment for ${invoiceNumber}...`, 'info');
+}
+
+function exportInvoices() {
+  window.craftpick?.showNotification('Preparing invoice export...', 'info');
+  
+  setTimeout(() => {
+    window.craftpick?.showNotification('Invoices exported successfully!', 'success');
+  }, 2000);
+}
+
+function toggleSelectAll() {
+  const selectAll = document.getElementById('selectAll');
+  const checkboxes = document.querySelectorAll('.invoice-checkbox');
+  
+  checkboxes.forEach(checkbox => {
+    checkbox.checked = selectAll.checked;
+  });
+  
+  updateBulkActions();
+}
+
+function updateBulkActions() {
+  const checkedBoxes = document.querySelectorAll('.invoice-checkbox:checked');
+  const bulkActions = document.getElementById('bulkActions');
+  const selectedCount = document.getElementById('selectedCount');
+  
+  if (checkedBoxes.length > 0) {
+    bulkActions.style.display = 'block';
+    selectedCount.textContent = checkedBoxes.length;
+  } else {
+    bulkActions.style.display = 'none';
+  }
+}
+
+function clearSelection() {
+  const checkboxes = document.querySelectorAll('.invoice-checkbox');
+  checkboxes.forEach(checkbox => {
+    checkbox.checked = false;
+  });
+  
+  document.getElementById('selectAll').checked = false;
+  updateBulkActions();
+}
+
+function downloadSelected() {
+  const checkedBoxes = document.querySelectorAll('.invoice-checkbox:checked');
+  const invoiceNumbers = Array.from(checkedBoxes).map(cb => 
+    cb.closest('tr').querySelector('.invoice-number').textContent
+  );
+  
+  window.craftpick?.showNotification(`Downloading ${invoiceNumbers.length} invoices...`, 'info');
+  
+  setTimeout(() => {
+    window.craftpick?.showNotification('Selected invoices downloaded!', 'success');
+    clearSelection();
+  }, 2000);
+}
+
+function paySelected() {
+  const checkedBoxes = document.querySelectorAll('.invoice-checkbox:checked');
+  const invoiceNumbers = Array.from(checkedBoxes).map(cb => 
+    cb.closest('tr').querySelector('.invoice-number').textContent
+  );
+  
+  window.craftpick?.showNotification(`Preparing payment for ${invoiceNumbers.length} invoices...`, 'info');
+  
+  showModal('paymentModal');
+}
+
+function changePage(direction) {
+  window.craftpick?.showNotification(`Loading ${direction} page...`, 'info');
+}
+
+function printInvoice() {
+  window.print();
+  window.craftpick?.showNotification('Print dialog opened', 'info');
+}
+
+// Initialize invoice page
+document.addEventListener('DOMContentLoaded', () => {
+  // Search functionality
+  const searchInput = document.getElementById('invoiceSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      const rows = document.querySelectorAll('.invoice-row');
+      
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(searchTerm) ? '' : 'none';
+      });
+    });
+  }
+  
+  // Filter functionality
+  const statusFilter = document.getElementById('statusFilter');
+  const dateFilter = document.getElementById('dateFilter');
+  
+  if (statusFilter) {
+    statusFilter.addEventListener('change', filterInvoices);
+  }
+  
+  if (dateFilter) {
+    dateFilter.addEventListener('change', filterInvoices);
+  }
+  
+  function filterInvoices() {
+    const status = statusFilter.value;
+    const dateRange = dateFilter.value;
+    const rows = document.querySelectorAll('.invoice-row');
+    
+    rows.forEach(row => {
+      let show = true;
+      
+      if (status && row.dataset.status !== status) {
+        show = false;
+      }
+      
+      // Add date filtering logic here
+      
+      row.style.display = show ? '' : 'none';
+    });
+  }
+  
+  // Payment method switching
+  const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
+  paymentMethods.forEach(method => {
+    method.addEventListener('change', (e) => {
+      const cardDetails = document.getElementById('cardDetails');
+      if (e.target.value === 'card') {
+        cardDetails.style.display = 'block';
+      } else {
+        cardDetails.style.display = 'none';
+      }
+    });
+  });
+  
+  // Payment form submission
+  const paymentForm = document.querySelector('.payment-form');
+  if (paymentForm) {
+    paymentForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+      
+      // Simulate payment processing
+      setTimeout(() => {
+        closeModal('paymentModal');
+        window.craftpick?.showNotification('Payment processed successfully!', 'success');
+        
+        // Reset form
+        e.target.reset();
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        
+        // Update invoice status (simulate)
+        updateInvoiceStatus();
+      }, 3000);
+    });
+  }
+  
+  // Card number formatting
+  const cardNumberInput = document.getElementById('cardNumber');
+  if (cardNumberInput) {
+    cardNumberInput.addEventListener('input', (e) => {
+      let value = e.target.value.replace(/\s/g, '');
+      let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+      e.target.value = formattedValue;
+    });
+  }
+  
+  // Expiry date formatting
+  const expiryDateInput = document.getElementById('expiryDate');
+  if (expiryDateInput) {
+    expiryDateInput.addEventListener('input', (e) => {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length >= 2) {
+        value = value.slice(0, 2) + '/' + value.slice(2, 4);
+      }
+      e.target.value = value;
+    });
+  }
+  
+  // Close modals on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const openModal = document.querySelector('.modal.show');
+      if (openModal) {
+        openModal.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    }
+  });
+  
+  // Close modals on overlay click
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+});
+
+function updateInvoiceStatus() {
+  // Simulate updating invoice status after payment
+  const pendingBadges = document.querySelectorAll('.status-pending');
+  pendingBadges.forEach(badge => {
+    if (badge.closest('tr').querySelector('.invoice-number').textContent.includes('INV-2024-002')) {
+      badge.className = 'status-badge status-paid';
+      badge.textContent = 'Paid';
+    }
+  });
+}
+</script>

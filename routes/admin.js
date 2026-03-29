@@ -6,10 +6,10 @@ const Service = require('../models/Service');
 const Subscription = require('../models/Subscription');
 const Invoice = require('../models/Invoice');
 const Page = require('../models/Page');
-const { webAdminAuth } = require('../middleware/auth');
+const { requireAdmin } = require('../middleware/auth');
 
-// Apply webAdminAuth middleware to all admin routes
-router.use(webAdminAuth);
+// Apply admin middleware to all admin routes
+router.use(requireAdmin);
 
 // Dashboard
 router.get('/dashboard', async (req, res) => {

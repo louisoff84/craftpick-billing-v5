@@ -1,0 +1,1600 @@
+{{> client-nav}}
+
+<div class="web-hosting-page">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="container">
+      <div class="page-header-content">
+        <div class="page-title-section">
+          <h1 class="page-title">Hébergement Web</h1>
+          <p class="page-subtitle">Gérez vos hébergements web avec Plesk</p>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-primary" onclick="createSubscription()">
+            <i class="fas fa-plus"></i> Nouvel Hébergement
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hosting Content -->
+  <div class="hosting-content">
+    <div class="container">
+      <!-- Hosting Stats -->
+      <div class="hosting-stats">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <div class="stat-info">
+            <h3 class="stat-number" id="totalSubscriptions">0</h3>
+            <p class="stat-label">Hébergements Total</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stat-info">
+            <h3 class="stat-number" id="activeSubscriptions">0</h3>
+            <p class="stat-label">Actifs</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-database"></i>
+          </div>
+          <div class="stat-info">
+            <h3 class="stat-number" id="totalDatabases">0</h3>
+            <p class="stat-label">Bases de Données</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="stat-info">
+            <h3 class="stat-number" id="totalEmails">0</h3>
+            <p class="stat-label">Comptes Email</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hosting Filters -->
+      <div class="hosting-filters">
+        <div class="filter-group">
+          <label>Recherche:</label>
+          <input type="text" id="hostingSearch" placeholder="Rechercher un hébergement...">
+        </div>
+        <div class="filter-group">
+          <label>Statut:</label>
+          <select id="statusFilter">
+            <option value="">Tous</option>
+            <option value="0">Actif</option>
+            <option value="16">Suspendu</option>
+            <option value="4">En cours</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Type:</label>
+          <select id="typeFilter">
+            <option value="">Tous</option>
+            <option value="vrt_hst">Hébergement Virtuel</option>
+            <option value="std_fwd">Redirection</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Subscriptions Grid -->
+      <div class="subscriptions-grid" id="subscriptionsGrid">
+        <!-- Subscriptions will be loaded here -->
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading-state" id="loadingState" style="display: none;">
+        <div class="loading-spinner">
+          <i class="fas fa-spinner fa-spin"></i>
+          <p>Chargement des hébergements...</p>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <div class="empty-content">
+          <i class="fas fa-globe"></i>
+          <h3>Aucun hébergement trouvé</h3>
+          <p>Créez votre premier hébergement web pour commencer</p>
+          <button class="btn btn-primary" onclick="createSubscription()">
+            <i class="fas fa-plus"></i> Créer un Hébergement
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Subscription Details Modal -->
+<div class="modal" id="subscriptionModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Détails de l'Hébergement</h3>
+      <button class="modal-close" onclick="closeSubscriptionModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="subscription-details">
+        <div class="detail-section">
+          <h4>Informations Générales</h4>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <label>Nom:</label>
+              <span id="detailName">-</span>
+            </div>
+            <div class="detail-item">
+              <label>Domaine:</label>
+              <span id="detailDomain">-</span>
+            </div>
+            <div class="detail-item">
+              <label>Statut:</label>
+              <span id="detailStatus">-</span>
+            </div>
+            <div class="detail-item">
+              <label>IP:</label>
+              <span id="detailIP">-</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h4>Ressources</h4>
+          <div class="resource-bars">
+            <div class="resource-bar">
+              <label>Espace Disque:</label>
+              <div class="bar-container">
+                <div class="bar-fill" id="diskBar" style="width: 0%"></div>
+                <span class="bar-text" id="diskText">0 MB / 0 MB</span>
+              </div>
+            </div>
+            <div class="resource-bar">
+              <label>Trafic:</label>
+              <div class="bar-container">
+                <div class="bar-fill" id="trafficBar" style="width: 0%"></div>
+                <span class="bar-text" id="trafficText">0 MB / 0 MB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h4>Services</h4>
+          <div class="service-list">
+            <div class="service-item">
+              <i class="fas fa-check-circle" id="phpStatus"></i>
+              <span>PHP</span>
+            </div>
+            <div class="service-item">
+              <i class="fas fa-check-circle" id="sslStatus"></i>
+              <span>SSL</span>
+            </div>
+            <div class="service-item">
+              <i class="fas fa-check-circle" id="ftpStatus"></i>
+              <span>FTP</span>
+            </div>
+            <div class="service-item">
+              <i class="fas fa-check-circle" id="emailStatus"></i>
+              <span>Email</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h4>Actions Rapides</h4>
+          <div class="action-buttons">
+            <button class="btn btn-outline" onclick="openDomains()">
+              <i class="fas fa-globe"></i> Domaines
+            </button>
+            <button class="btn btn-outline" onclick="openDatabases()">
+              <i class="fas fa-database"></i> Bases de Données
+            </button>
+            <button class="btn btn-outline" onclick="openEmailAccounts()">
+              <i class="fas fa-envelope"></i> Emails
+            </button>
+            <button class="btn btn-outline" onclick="openSSLCertificates()">
+              <i class="fas fa-lock"></i> Certificats SSL
+            </button>
+            <button class="btn btn-outline" onclick="openBackups()">
+              <i class="fas fa-save"></i> Sauvegardes
+            </button>
+            <button class="btn btn-outline" onclick="openStats()">
+              <i class="fas fa-chart-bar"></i> Statistiques
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Domains Modal -->
+<div class="modal" id="domainsModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Gestion des Domaines</h3>
+      <button class="modal-close" onclick="closeDomainsModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="domains-container">
+        <div class="domains-header">
+          <button class="btn btn-primary" onclick="addDomain()">
+            <i class="fas fa-plus"></i> Ajouter un Domaine
+          </button>
+        </div>
+        <div class="domains-list" id="domainsList">
+          <!-- Domains will be loaded here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Databases Modal -->
+<div class="modal" id="databasesModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Bases de Données</h3>
+      <button class="modal-close" onclick="closeDatabasesModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="databases-container">
+        <div class="databases-header">
+          <button class="btn btn-primary" onclick="addDatabase()">
+            <i class="fas fa-plus"></i> Nouvelle Base de Données
+          </button>
+        </div>
+        <div class="databases-list" id="databasesList">
+          <!-- Databases will be loaded here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Email Accounts Modal -->
+<div class="modal" id="emailModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Comptes Email</h3>
+      <button class="modal-close" onclick="closeEmailModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="email-container">
+        <div class="email-header">
+          <button class="btn btn-primary" onclick="addEmailAccount()">
+            <i class="fas fa-plus"></i> Nouveau Compte Email
+          </button>
+        </div>
+        <div class="email-list" id="emailList">
+          <!-- Email accounts will be loaded here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SSL Certificates Modal -->
+<div class="modal" id="sslModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Certificats SSL</h3>
+      <button class="modal-close" onclick="closeSSLModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="ssl-container">
+        <div class="ssl-header">
+          <button class="btn btn-primary" onclick="installSSLCertificate()">
+            <i class="fas fa-plus"></i> Installer un Certificat
+          </button>
+        </div>
+        <div class="ssl-list" id="sslList">
+          <!-- SSL certificates will be loaded here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Backups Modal -->
+<div class="modal" id="backupsModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Sauvegardes</h3>
+      <button class="modal-close" onclick="closeBackupsModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="backups-container">
+        <div class="backups-header">
+          <button class="btn btn-primary" onclick="createBackup()">
+            <i class="fas fa-plus"></i> Nouvelle Sauvegarde
+          </button>
+        </div>
+        <div class="backups-list" id="backupsList">
+          <!-- Backups will be loaded here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Statistics Modal -->
+<div class="modal" id="statsModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Statistiques d'Utilisation</h3>
+      <button class="modal-close" onclick="closeStatsModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="stats-container">
+        <div class="stats-period">
+          <select id="statsPeriod" onchange="loadStats()">
+            <option value="day">Aujourd'hui</option>
+            <option value="week">Cette semaine</option>
+            <option value="month">Ce mois</option>
+            <option value="year">Cette année</option>
+          </select>
+        </div>
+        <div class="stats-content" id="statsContent">
+          <!-- Stats will be loaded here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Web Hosting Page Styles */
+.web-hosting-page {
+  min-height: 100vh;
+  background: var(--gradient-dark);
+  color: var(--light);
+}
+
+.page-header {
+  background: var(--gradient-secondary);
+  color: var(--white);
+  padding: calc(80px + var(--spacing-3xl)) 0 var(--spacing-3xl);
+}
+
+.page-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-xl);
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: var(--spacing-sm);
+}
+
+.page-subtitle {
+  font-size: 1.125rem;
+  opacity: 0.9;
+}
+
+.hosting-content {
+  padding: var(--spacing-3xl) 0;
+}
+
+.hosting-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-3xl);
+}
+
+.stat-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  transition: all var(--transition-normal);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow);
+  border-color: var(--accent);
+}
+
+.stat-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--gradient-accent);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 1.5rem;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: var(--spacing-xs);
+}
+
+.stat-label {
+  color: var(--gray);
+  font-size: 0.875rem;
+}
+
+.hosting-filters {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-3xl);
+  display: flex;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: var(--spacing-xs);
+}
+
+.filter-group input,
+.filter-group select {
+  padding: var(--spacing-md);
+  background: var(--glass-border);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  color: var(--white);
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.1);
+}
+
+.subscriptions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: var(--spacing-2xl);
+  margin-bottom: var(--spacing-3xl);
+}
+
+.subscription-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.subscription-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-accent);
+  transform: scaleX(0);
+  transition: transform var(--transition-normal);
+}
+
+.subscription-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-glow);
+  border-color: var(--accent);
+}
+
+.subscription-card:hover::before {
+  transform: scaleX(1);
+}
+
+.subscription-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-lg);
+}
+
+.subscription-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--spacing-xs);
+}
+
+.subscription-status {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.status-0 {
+  background: var(--success);
+  color: var(--white);
+}
+
+.status-16 {
+  background: var(--danger);
+  color: var(--white);
+}
+
+.status-4 {
+  background: var(--warning);
+  color: var(--white);
+}
+
+.subscription-info {
+  margin-bottom: var(--spacing-lg);
+}
+
+.subscription-specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.spec-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: var(--gray);
+}
+
+.spec-value {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.subscription-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.subscription-actions .btn {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.875rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+/* Modal Styles */
+.modal-content.large {
+  max-width: 800px;
+  width: 90%;
+}
+
+.subscription-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.detail-section h4 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: var(--spacing-sm);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.detail-item label {
+  font-size: 0.875rem;
+  color: var(--gray);
+  font-weight: 600;
+}
+
+.detail-item span {
+  color: var(--white);
+  font-weight: 500;
+}
+
+.resource-bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.resource-bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.resource-bar label {
+  font-size: 0.875rem;
+  color: var(--gray);
+  font-weight: 600;
+}
+
+.bar-container {
+  position: relative;
+  background: var(--glass-border);
+  border-radius: var(--radius-lg);
+  height: 24px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--gradient-accent);
+  transition: width var(--transition-normal);
+  border-radius: var(--radius-lg);
+}
+
+.bar-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--white);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+}
+
+.service-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--glass-border);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-fast);
+}
+
+.service-item:hover {
+  background: var(--glass-bg);
+  transform: translateX(4px);
+}
+
+.service-item i {
+  color: var(--success);
+}
+
+.action-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.domains-container,
+.databases-container,
+.email-container,
+.ssl-container,
+.backups-container,
+.stats-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.domains-header,
+.databases-header,
+.email-header,
+.ssl-header,
+.backups-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.domains-list,
+.databases-list,
+.email-list,
+.ssl-list,
+.backups-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.domain-item,
+.database-item,
+.email-item,
+.backup-item,
+.ssl-item {
+  background: var(--glass-border);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all var(--transition-fast);
+}
+
+.domain-item:hover,
+.database-item:hover,
+.email-item:hover,
+.backup-item:hover,
+.ssl-item:hover {
+  background: var(--glass-bg);
+  border-color: var(--accent);
+}
+
+.domain-info,
+.database-info,
+.email-info,
+.backup-info,
+.ssl-info {
+  flex: 1;
+}
+
+.domain-name,
+.database-name,
+.email-name,
+.backup-name,
+.ssl-name {
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: var(--spacing-xs);
+}
+
+.domain-meta,
+.database-meta,
+.email-meta,
+.backup-meta,
+.ssl-meta {
+  font-size: 0.875rem;
+  color: var(--gray);
+}
+
+.domain-actions,
+.database-actions,
+.email-actions,
+.backup-actions,
+.ssl-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.domain-actions .btn,
+.database-actions .btn,
+.email-actions .btn,
+.backup-actions .btn,
+.ssl-actions .btn {
+  font-size: 0.75rem;
+  padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+.stats-period {
+  margin-bottom: var(--spacing-lg);
+}
+
+.stats-period select {
+  width: 100%;
+  padding: var(--spacing-md);
+  background: var(--glass-border);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  color: var(--white);
+  font-size: 1rem;
+}
+
+.stats-content {
+  background: var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  min-height: 200px;
+}
+
+/* Loading and Empty States */
+.loading-state,
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-4xl);
+}
+
+.loading-spinner i {
+  font-size: 3rem;
+  color: var(--accent);
+  margin-bottom: var(--spacing-lg);
+}
+
+.loading-spinner p,
+.empty-content h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--spacing-md);
+}
+
+.empty-content p {
+  color: var(--gray);
+  margin-bottom: var(--spacing-xl);
+}
+
+.empty-content i {
+  font-size: 4rem;
+  color: var(--gray-light);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page-header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .hosting-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .hosting-filters {
+    flex-direction: column;
+  }
+  
+  .filter-group {
+    min-width: 100%;
+  }
+  
+  .subscriptions-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .service-list {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<script>
+let currentSubscription = null;
+let subscriptions = [];
+
+// Load subscriptions on page load
+document.addEventListener('DOMContentLoaded', () => {
+  loadSubscriptions();
+  setupEventListeners();
+});
+
+async function loadSubscriptions() {
+  try {
+    showLoadingState();
+    const response = await fetch('/api/plesk/subscriptions', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      subscriptions = data.data;
+      renderSubscriptions();
+      updateStats();
+      hideLoadingState();
+    } else {
+      showError('Failed to load subscriptions');
+      hideLoadingState();
+    }
+  } catch (error) {
+    console.error('Error loading subscriptions:', error);
+    showError('Error loading subscriptions');
+    hideLoadingState();
+  }
+}
+
+function renderSubscriptions() {
+  const grid = document.getElementById('subscriptionsGrid');
+  const searchTerm = document.getElementById('hostingSearch').value.toLowerCase();
+  const statusFilter = document.getElementById('statusFilter').value;
+  const typeFilter = document.getElementById('typeFilter').value;
+  
+  let filteredSubscriptions = subscriptions.filter(subscription => {
+    const matchesSearch = subscription.name.toLowerCase().includes(searchTerm) || 
+                           (subscription.domain && subscription.domain.toLowerCase().includes(searchTerm));
+    const matchesStatus = !statusFilter || subscription.status == statusFilter;
+    const matchesType = !typeFilter || subscription.htype === typeFilter;
+    
+    return matchesSearch && matchesStatus && matchesType;
+  });
+  
+  if (filteredSubscriptions.length === 0) {
+    showEmptyState();
+    return;
+  }
+  
+  hideEmptyState();
+  
+  grid.innerHTML = filteredSubscriptions.map(subscription => `
+    <div class="subscription-card" onclick="openSubscriptionDetails('${subscription.id}')">
+      <div class="subscription-header">
+        <div>
+          <div class="subscription-name">${subscription.name}</div>
+          <div class="subscription-status status-${subscription.status}">${getStatusText(subscription.status)}</div>
+        </div>
+      </div>
+      <div class="subscription-info">
+        <div class="subscription-specs">
+          <div class="spec-item">
+            <label>Espace Disque:</label>
+            <span class="spec-value">${Math.round(subscription.disk_space / 1024 / 1024)} GB</span>
+          </div>
+          <div class="spec-item">
+            <label>Bases de Données:</label>
+            <span class="spec-value">${subscription.max_db || 'Illimité'}</span>
+          </div>
+          <div class="spec-item">
+            <label>Domaines:</label>
+            <span class="spec-value">${subscription.max_dom || 'Illimité'}</span>
+          </div>
+          <div class="spec-item">
+            <label>Emails:</label>
+            <span class="spec-value">${subscription.max_box || 'Illimité'}</span>
+          </div>
+        </div>
+      </div>
+      <div class="subscription-actions">
+        <button class="btn btn-success" onclick="event.stopPropagation(); quickAction('${subscription.id}', 'activate')">
+          <i class="fas fa-check"></i>
+        </button>
+        <button class="btn btn-warning" onclick="event.stopPropagation(); quickAction('${subscription.id}', 'suspend')">
+          <i class="fas fa-pause"></i>
+        </button>
+        <button class="btn btn-danger" onclick="event.stopPropagation(); quickAction('${subscription.id}', 'delete')">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function updateStats() {
+  const totalSubscriptions = subscriptions.length;
+  const activeSubscriptions = subscriptions.filter(s => s.status == 0).length;
+  
+  document.getElementById('totalSubscriptions').textContent = totalSubscriptions;
+  document.getElementById('activeSubscriptions').textContent = activeSubscriptions;
+  
+  // Count databases and emails (would need additional API calls)
+  document.getElementById('totalDatabases').textContent = '0';
+  document.getElementById('totalEmails').textContent = '0';
+}
+
+function getStatusText(status) {
+  const statusMap = {
+    '0': 'Actif',
+    '16': 'Suspendu',
+    '4': 'En cours',
+    '64': 'Expiré'
+  };
+  return statusMap[status] || status;
+}
+
+async function openSubscriptionDetails(subscriptionId) {
+  try {
+    const response = await fetch(`/api/plesk/subscriptions/${subscriptionId}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      currentSubscription = data.data;
+      showSubscriptionModal();
+      updateSubscriptionDetails();
+      loadSubscriptionResources();
+    } else {
+      showError('Failed to load subscription details');
+    }
+  } catch (error) {
+    console.error('Error loading subscription details:', error);
+    showError('Error loading subscription details');
+  }
+}
+
+function showSubscriptionModal() {
+  document.getElementById('subscriptionModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSubscriptionModal() {
+  document.getElementById('subscriptionModal').classList.remove('show');
+  document.body.style.overflow = '';
+  currentSubscription = null;
+}
+
+function updateSubscriptionDetails() {
+  if (!currentSubscription) return;
+  
+  document.getElementById('detailName').textContent = currentSubscription.name;
+  document.getElementById('detailDomain').textContent = currentSubscription.domain || 'N/A';
+  document.getElementById('detailStatus').textContent = getStatusText(currentSubscription.status);
+  document.getElementById('detailIP').textContent = currentSubscription.ip_address || 'N/A';
+  
+  // Update service status indicators
+  updateServiceStatus();
+}
+
+function updateServiceStatus() {
+  if (!currentSubscription) return;
+  
+  // These would be determined from the subscription data
+  document.getElementById('phpStatus').className = 'fas fa-check-circle';
+  document.getElementById('sslStatus').className = currentSubscription.ssl ? 'fas fa-check-circle' : 'fas fa-times-circle';
+  document.getElementById('ftpStatus').className = 'fas fa-check-circle';
+  document.getElementById('emailStatus').className = 'fas fa-check-circle';
+}
+
+async function loadSubscriptionResources() {
+  if (!currentSubscription) return;
+  
+  try {
+    const response = await fetch(`/api/plesk/stats/resources/${currentSubscription.id}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      updateResourceBars(data.data);
+    }
+  } catch (error) {
+    console.error('Error loading resources:', error);
+  }
+}
+
+function updateResourceBars(resources) {
+  if (!resources) return;
+  
+  // Update disk usage
+  const diskUsed = resources.disk_used || 0;
+  const diskTotal = resources.disk_limit || 0;
+  const diskPercent = (diskUsed / diskTotal) * 100;
+  document.getElementById('diskBar').style.width = `${diskPercent}%`;
+  document.getElementById('diskText').textContent = `${Math.round(diskUsed / 1024 / 1024)} GB / ${Math.round(diskTotal / 1024 / 1024)} GB`;
+  
+  // Update traffic usage
+  const trafficUsed = resources.traffic_used || 0;
+  const trafficTotal = resources.traffic_limit || 0;
+  const trafficPercent = trafficTotal > 0 ? (trafficUsed / trafficTotal) * 100 : 0;
+  document.getElementById('trafficBar').style.width = `${trafficPercent}%`;
+  document.getElementById('trafficText').textContent = trafficTotal > 0 ? 
+    `${Math.round(trafficUsed / 1024 / 1024)} GB / ${Math.round(trafficTotal / 1024 / 1024)} GB` : 
+    'Illimité';
+}
+
+function openDomains() {
+  if (!currentSubscription) return;
+  
+  document.getElementById('domainsModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  
+  loadDomains();
+}
+
+function closeDomainsModal() {
+  document.getElementById('domainsModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+async function loadDomains() {
+  if (!currentSubscription) return;
+  
+  try {
+    const response = await fetch(`/api/plesk/domains?subscriptionId=${currentSubscription.id}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      renderDomains(data.data);
+    } else {
+      showError('Failed to load domains');
+    }
+  } catch (error) {
+    console.error('Error loading domains:', error);
+    showError('Error loading domains');
+  }
+}
+
+function renderDomains(domains) {
+  const list = document.getElementById('domainsList');
+  
+  if (domains.length === 0) {
+    list.innerHTML = '<p class="text-center">No domains found</p>';
+    return;
+  }
+  
+  list.innerHTML = domains.map(domain => `
+    <div class="domain-item">
+      <div class="domain-info">
+        <div class="domain-name">${domain.name}</div>
+        <div class="domain-meta">
+          Status: ${domain.status === 0 ? 'Active' : 'Inactive'} • 
+          Created: ${new Date(domain.cr_date).toLocaleDateString()}
+        </div>
+      </div>
+      <div class="domain-actions">
+        <button class="btn btn-outline btn-sm" onclick="manageDomain('${domain.id}')">
+          <i class="fas fa-cog"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="deleteDomain('${domain.id}')">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openDatabases() {
+  if (!currentSubscription) return;
+  
+  document.getElementById('databasesModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  
+  loadDatabases();
+}
+
+function closeDatabasesModal() {
+  document.getElementById('databasesModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+async function loadDatabases() {
+  if (!currentSubscription) return;
+  
+  try {
+    const response = await fetch(`/api/plesk/databases?subscriptionId=${currentSubscription.id}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      renderDatabases(data.data);
+    } else {
+      showError('Failed to load databases');
+    }
+  } catch (error) {
+    console.error('Error loading databases:', error);
+    showError('Error loading databases');
+  }
+}
+
+function renderDatabases(databases) {
+  const list = document.getElementById('databasesList');
+  
+  if (databases.length === 0) {
+    list.innerHTML = '<p class="text-center">No databases found</p>';
+    return;
+  }
+  
+  list.innerHTML = databases.map(database => `
+    <div class="database-item">
+      <div class="database-info">
+        <div class="database-name">${database.name}</div>
+        <div class="database-meta">
+          Type: ${database.type} • 
+          Server: ${database.db_server || 'Default'}
+        </div>
+      </div>
+      <div class="database-actions">
+        <button class="btn btn-outline btn-sm" onclick="manageDatabase('${database.id}')">
+          <i class="fas fa-cog"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="deleteDatabase('${database.id}')">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openEmailAccounts() {
+  if (!currentSubscription) return;
+  
+  document.getElementById('emailModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  
+  loadEmailAccounts();
+}
+
+function closeEmailModal() {
+  document.getElementById('emailModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+async function loadEmailAccounts() {
+  if (!currentSubscription) return;
+  
+  try {
+    const response = await fetch(`/api/plesk/mail-accounts?subscriptionId=${currentSubscription.id}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      renderEmailAccounts(data.data);
+    } else {
+      showError('Failed to load email accounts');
+    }
+  } catch (error) {
+    console.error('Error loading email accounts:', error);
+    showError('Error loading email accounts');
+  }
+}
+
+function renderEmailAccounts(emails) {
+  const list = document.getElementById('emailList');
+  
+  if (emails.length === 0) {
+    list.innerHTML = '<p class="text-center">No email accounts found</p>';
+    return;
+  }
+  
+  list.innerHTML = emails.map(email => `
+    <div class="email-item">
+      <div class="email-info">
+        <div class="email-name">${email.name}</div>
+        <div class="email-meta">
+          ${email.name}@${currentSubscription.domain || 'domain.com'} • 
+          Quota: ${email.mailbox_quota === -1 ? 'Unlimited' : email.mailbox_quota + ' MB'}
+        </div>
+      </div>
+      <div class="email-actions">
+        <button class="btn btn-outline btn-sm" onclick="manageEmail('${email.id}')">
+          <i class="fas fa-cog"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="deleteEmail('${email.id}')">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openSSLCertificates() {
+  if (!currentSubscription) return;
+  
+  document.getElementById('sslModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  
+  loadSSLCertificates();
+}
+
+function closeSSLModal() {
+  document.getElementById('sslModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+async function loadSSLCertificates() {
+  if (!currentSubscription) return;
+  
+  try {
+    const response = await fetch(`/api/plesk/ssl-certificates?subscriptionId=${currentSubscription.id}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      renderSSLCertificates(data.data);
+    } else {
+      showError('Failed to load SSL certificates');
+    }
+  } catch (error) {
+    console.error('Error loading SSL certificates:', error);
+    showError('Error loading SSL certificates');
+  }
+}
+
+function renderSSLCertificates(certificates) {
+  const list = document.getElementById('sslList');
+  
+  if (certificates.length === 0) {
+    list.innerHTML = '<p class="text-center">No SSL certificates found</p>';
+    return;
+  }
+  
+  list.innerHTML = certificates.map(cert => `
+    <div class="ssl-item">
+      <div class="ssl-info">
+        <div class="ssl-name">${cert.name}</div>
+        <div class="ssl-meta">
+          Issuer: ${cert.issuer || 'Unknown'} • 
+          Expires: ${cert.expirationDate ? new Date(cert.expirationDate).toLocaleDateString() : 'Unknown'}
+        </div>
+      </div>
+      <div class="ssl-actions">
+        <button class="btn btn-outline btn-sm" onclick="manageSSL('${cert.id}')">
+          <i class="fas fa-cog"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="deleteSSL('${cert.id}')">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openBackups() {
+  if (!currentSubscription) return;
+  
+  document.getElementById('backupsModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  
+  loadBackups();
+}
+
+function closeBackupsModal() {
+  document.getElementById('backupsModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+async function loadBackups() {
+  if (!currentSubscription) return;
+  
+  try {
+    const response = await fetch(`/api/plesk/backups?subscriptionId=${currentSubscription.id}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      renderBackups(data.data);
+    } else {
+      showError('Failed to load backups');
+    }
+  } catch (error) {
+    console.error('Error loading backups:', error);
+    showError('Error loading backups');
+  }
+}
+
+function renderBackups(backups) {
+  const list = document.getElementById('backupsList');
+  
+  if (backups.length === 0) {
+    list.innerHTML = '<p class="text-center">No backups found</p>';
+    return;
+  }
+  
+  list.innerHTML = backups.map(backup => `
+    <div class="backup-item">
+      <div class="backup-info">
+        <div class="backup-name">${backup.name}</div>
+        <div class="backup-meta">
+          Created: ${new Date(backup.created_at).toLocaleString()}
+          ${backup.completed_at ? ` • Completed: ${new Date(backup.completed_at).toLocaleString()}` : ' • In Progress'}
+        </div>
+      </div>
+      <div class="backup-actions">
+        <button class="btn btn-outline btn-sm" onclick="downloadBackup('${backup.id}')">
+          <i class="fas fa-download"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="deleteBackup('${backup.id}')">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openStats() {
+  if (!currentSubscription) return;
+  
+  document.getElementById('statsModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  
+  loadStats();
+}
+
+function closeStatsModal() {
+  document.getElementById('statsModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+async function loadStats() {
+  if (!currentSubscription) return;
+  
+  const period = document.getElementById('statsPeriod').value;
+  
+  try {
+    const response = await fetch(`/api/plesk/stats/traffic/${currentSubscription.id}?period=${period}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      renderStats(data.data);
+    } else {
+      showError('Failed to load statistics');
+    }
+  } catch (error) {
+    console.error('Error loading statistics:', error);
+    showError('Error loading statistics');
+  }
+}
+
+function renderStats(stats) {
+  const content = document.getElementById('statsContent');
+  
+  content.innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-item">
+        <label>Trafic Entrant:</label>
+        <span>${Math.round(stats.incoming / 1024 / 1024)} GB</span>
+      </div>
+      <div class="stat-item">
+        <label>Trafic Sortant:</label>
+        <span>${Math.round(stats.outgoing / 1024 / 1024)} GB</span>
+      </div>
+      <div class="stat-item">
+        <label>Total:</label>
+        <span>${Math.round((stats.incoming + stats.outgoing) / 1024 / 1024)} GB</span>
+      </div>
+    </div>
+  `;
+}
+
+function setupEventListeners() {
+  // Search and filters
+  document.getElementById('hostingSearch').addEventListener('input', renderSubscriptions);
+  document.getElementById('statusFilter').addEventListener('change', renderSubscriptions);
+  document.getElementById('typeFilter').addEventListener('change', renderSubscriptions);
+  
+  // Close modals on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeSubscriptionModal();
+      closeDomainsModal();
+      closeDatabasesModal();
+      closeEmailModal();
+      closeSSLModal();
+      closeBackupsModal();
+      closeStatsModal();
+    }
+  });
+}
+
+function showLoadingState() {
+  document.getElementById('loadingState').style.display = 'block';
+  document.getElementById('subscriptionsGrid').style.display = 'none';
+  document.getElementById('emptyState').style.display = 'none';
+}
+
+function hideLoadingState() {
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('subscriptionsGrid').style.display = 'grid';
+}
+
+function showEmptyState() {
+  document.getElementById('emptyState').style.display = 'block';
+  document.getElementById('subscriptionsGrid').style.display = 'none';
+}
+
+function hideEmptyState() {
+  document.getElementById('emptyState').style.display = 'none';
+}
+
+function createSubscription() {
+  // Redirect to subscription creation page or open modal
+  showNotification('Subscription creation feature coming soon!', 'info');
+}
+
+function showNotification(message, type) {
+  // Use the global notification system
+  if (window.craftpick) {
+    window.craftpick.showNotification(message, type);
+  } else {
+    alert(message);
+  }
+}
+
+function showError(message) {
+  showNotification(message, 'error');
+}
+
+// Placeholder functions for actions
+function addDomain() {
+  showNotification('Add domain feature coming soon!', 'info');
+}
+
+function addDatabase() {
+  showNotification('Add database feature coming soon!', 'info');
+}
+
+function addEmailAccount() {
+  showNotification('Add email account feature coming soon!', 'info');
+}
+
+function installSSLCertificate() {
+  showNotification('Install SSL certificate feature coming soon!', 'info');
+}
+
+function createBackup() {
+  showNotification('Create backup feature coming soon!', 'info');
+}
+</script>

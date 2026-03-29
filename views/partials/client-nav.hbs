@@ -1,0 +1,364 @@
+<nav class="client-nav">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a href="/client/dashboard" class="logo">
+        <i class="fas fa-server"></i>
+        <span>CraftPick</span>
+      </a>
+    </div>
+
+    <div class="nav-menu">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="/client/dashboard" class="nav-link {{#if (eq current 'dashboard')}}active{{/if}}">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Tableau de bord</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/client/services" class="nav-link {{#if (eq current 'services')}}active{{/if}}">
+            <i class="fas fa-server"></i>
+            <span>Services</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/client/minecraft-servers" class="nav-link {{#if (eq current 'minecraft-servers')}}active{{/if}}">
+            <i class="fas fa-cube"></i>
+            <span>Serveurs Minecraft</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/client/web-hosting" class="nav-link {{#if (eq current 'web-hosting')}}active{{/if}}">
+            <i class="fas fa-globe"></i>
+            <span>Hébergement Web</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/client/domains" class="nav-link {{#if (eq current 'domains')}}active{{/if}}">
+            <i class="fas fa-globe-americas"></i>
+            <span>Domaines</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/client/invoices" class="nav-link {{#if (eq current 'invoices')}}active{{/if}}">
+            <i class="fas fa-file-invoice"></i>
+            <span>Factures</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/client/support" class="nav-link {{#if (eq current 'support')}}active{{/if}}">
+            <i class="fas fa-life-ring"></i>
+            <span>Support</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="nav-user">
+      <div class="user-menu">
+        <button class="user-btn" onclick="toggleUserMenu()">
+          <i class="fas fa-user"></i>
+          <span>{{user.firstName}}</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="user-dropdown" id="userDropdown">
+          <a href="/client/profile">
+            <i class="fas fa-user-cog"></i>
+            <span>Profil</span>
+          </a>
+          <a href="/client/settings">
+            <i class="fas fa-cog"></i>
+            <span>Paramètres</span>
+          </a>
+          <hr>
+          <a href="/auth/logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Déconnexion</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <button class="nav-toggle" id="navToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</nav>
+
+<style>
+/* Client Navigation Styles */
+.client-nav {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-brand .logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  text-decoration: none;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.nav-brand .logo i {
+  color: var(--accent);
+  font-size: 1.5rem;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--gray);
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-fast);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: var(--white);
+  background: var(--glass-border);
+  transform: translateY(-2px);
+}
+
+.nav-link.active {
+  color: var(--white);
+  background: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+.nav-link i {
+  font-size: 1rem;
+  width: 20px;
+  text-align: center;
+}
+
+.nav-user {
+  margin-left: var(--spacing-xl);
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--glass-border);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  color: var(--white);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-weight: 500;
+}
+
+.user-btn:hover {
+  background: var(--glass-bg);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.user-btn i:last-child {
+  font-size: 0.75rem;
+  margin-left: var(--spacing-xs);
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  min-width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all var(--transition-normal);
+  margin-top: var(--spacing-sm);
+  z-index: var(--z-dropdown);
+}
+
+.user-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.user-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--gray);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.user-dropdown a:hover {
+  color: var(--white);
+  background: var(--glass-border);
+}
+
+.user-dropdown a i {
+  width: 20px;
+  text-align: center;
+}
+
+.user-dropdown hr {
+  border: none;
+  border-top: 1px solid var(--glass-border);
+  margin: var(--spacing-sm) 0;
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.nav-toggle:hover {
+  background: var(--glass-border);
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .nav-container {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+  
+  .nav-list {
+    gap: var(--spacing-md);
+  }
+  
+  .nav-link {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+  
+  .nav-link span {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-menu {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    transform: translateY(-100%);
+    transition: transform var(--transition-normal);
+    padding: var(--spacing-xl);
+    z-index: var(--z-fixed);
+  }
+  
+  .nav-menu.show {
+    transform: translateY(0);
+  }
+  
+  .nav-list {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    width: 100%;
+  }
+  
+  .nav-link {
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+  }
+  
+  .nav-link span {
+    display: inline;
+  }
+  
+  .nav-user {
+    margin-left: auto;
+  }
+  
+  .nav-toggle {
+    display: block;
+  }
+  
+  .user-dropdown {
+    position: fixed;
+    top: 140px;
+    right: var(--spacing-lg);
+  }
+}
+</style>
+
+<script>
+function toggleUserMenu() {
+  const dropdown = document.getElementById('userDropdown');
+  dropdown.classList.toggle('show');
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  const userMenu = document.querySelector('.user-menu');
+  if (!userMenu.contains(e.target)) {
+    document.getElementById('userDropdown').classList.remove('show');
+  }
+});
+
+// Mobile menu toggle
+document.addEventListener('DOMContentLoaded', () => {
+  const navToggle = document.getElementById('navToggle');
+  const navMenu = document.querySelector('.nav-menu');
+  
+  if (navToggle) {
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('show');
+    });
+  }
+});
+</script>

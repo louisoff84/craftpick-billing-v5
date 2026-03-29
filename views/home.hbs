@@ -1,147 +1,826 @@
-<div class="hero">
-    <div class="container">
-        <div class="hero-content">
-            <h1 class="hero-title">{{#if homePage.title}}{{homePage.title}}{{else}}Hébergement Web Fiable et Performant{{/if}}</h1>
-            <p class="hero-subtitle">{{#if homePage.content}}{{homePage.excerpt}}{{else}}Des solutions d'hébergement adaptées à tous vos besoins, du site personnel aux applications d'entreprise{{/if}}</p>
-            <div class="hero-actions">
-                <a href="/services" class="btn btn-primary btn-large">
-                    <i class="fas fa-rocket"></i> Découvrir nos services
-                </a>
-                <a href="/register" class="btn btn-outline btn-large">
-                    <i class="fas fa-user-plus"></i> Commencer gratuitement
-                </a>
-            </div>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          <span class="text-gradient">Premium Hosting</span> for Your Success
+        </h1>
+        <p class="hero-subtitle">
+          Lightning-fast, secure, and reliable hosting solutions that scale with your business. 
+          Join thousands of satisfied customers trusting CraftPick Hosting.
+        </p>
+        <div class="hero-actions">
+          <a href="/services" class="btn btn-primary btn-lg">
+            <i class="fas fa-rocket"></i> Get Started Now
+          </a>
+          <a href="/services" class="btn btn-outline btn-lg">
+            <i class="fas fa-play-circle"></i> View Plans
+          </a>
         </div>
-        <div class="hero-image">
+        <div class="hero-features">
+          <div class="hero-feature">
+            <i class="fas fa-shield-alt"></i>
+            <span>99.9% Uptime Guarantee</span>
+          </div>
+          <div class="hero-feature">
+            <i class="fas fa-headset"></i>
+            <span>24/7 Expert Support</span>
+          </div>
+          <div class="hero-feature">
+            <i class="fas fa-bolt"></i>
+            <span>Lightning Fast SSD</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-graphic">
+          <div class="server-icon">
             <i class="fas fa-server"></i>
+          </div>
+          <div class="data-flow">
+            <div class="data-particle"></div>
+            <div class="data-particle"></div>
+            <div class="data-particle"></div>
+            <div class="data-particle"></div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+</section>
 
+<!-- Features Section -->
 <section class="features">
-    <div class="container">
-        <h2 class="section-title">Pourquoi nous choisir ?</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-tachometer-alt"></i>
-                </div>
-                <h3>Performance Maximale</h3>
-                <p>Infrastructure de pointe avec SSD NVMe et processeurs de dernière génération</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3>Sécurité Renforcée</h3>
-                <p>Protection DDoS, SSL gratuit et surveillance 24/7 de vos services</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-headset"></i>
-                </div>
-                <h3>Support Expert</h3>
-                <p>Équipe technique disponible 24/7 pour vous accompagner dans vos projets</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3>Scalabilité Illimitée</h3>
-                <p>Faites évoluer vos ressources en fonction de vos besoins sans interruption</p>
-            </div>
-        </div>
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Why Choose CraftPick Hosting?</h2>
+      <p class="section-subtitle">
+        We provide enterprise-grade infrastructure with unmatched performance and security
+      </p>
     </div>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-tachometer-alt"></i>
+        </div>
+        <h3 class="feature-title">Blazing Fast Speed</h3>
+        <p class="feature-description">
+          Powered by latest NVMe SSD technology and optimized servers for lightning-fast loading times.
+        </p>
+        <div class="feature-stats">
+          <span>245ms</span>
+          <small>Average Response Time</small>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3 class="feature-title">Military-Grade Security</h3>
+        <p class="feature-description">
+          Advanced DDoS protection, SSL certificates, and regular security audits keep your data safe.
+        </p>
+        <div class="feature-stats">
+          <span>100%</span>
+          <small>Security Score</small>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3 class="feature-title">99.9% Uptime Guarantee</h3>
+        <p class="feature-description">
+          Redundant infrastructure and proactive monitoring ensure your website is always online.
+        </p>
+        <div class="feature-stats">
+          <span>99.9%</span>
+          <small>Uptime SLA</small>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h3 class="feature-title">Expert Support 24/7</h3>
+        <p class="feature-description">
+          Our team of hosting experts is always ready to help you with any technical issues.
+        </p>
+        <div class="feature-stats">
+          <span>< 5min</span>
+          <small>Avg Response Time</small>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </div>
+        <h3 class="feature-title">Scalable Solutions</h3>
+        <p class="feature-description">
+          Easily upgrade your resources as your business grows without any downtime.
+        </p>
+        <div class="feature-stats">
+          <span>1-click</span>
+          <small>Resource Scaling</small>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-euro-sign"></i>
+        </div>
+        <h3 class="feature-title">Transparent Pricing</h3>
+        <p class="feature-description">
+          No hidden fees, clear pricing plans, and a 30-day money-back guarantee.
+        </p>
+        <div class="feature-stats">
+          <span>30 days</span>
+          <small>Money Back</small>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- Services Preview -->
 <section class="services-preview">
-    <div class="container">
-        <h2 class="section-title">Nos Solutions d'Hébergement</h2>
-        <div class="services-grid">
-            {{#each services}}
-                <div class="service-card">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            {{#if (eq type "web_hosting")}}
-                                <i class="fas fa-globe"></i>
-                            {{else if (eq type "vps")}}
-                                <i class="fas fa-server"></i>
-                            {{else if (eq type "dedicated")}}
-                                <i class="fas fa-server"></i>
-                            {{else if (eq type "domain")}}
-                                <i class="fas fa-globe"></i>
-                            {{else if (eq type "ssl")}}
-                                <i class="fas fa-lock"></i>
-                            {{else}}
-                                <i class="fas fa-cube"></i>
-                            {{/if}}
-                        </div>
-                        <h3>{{name}}</h3>
-                    </div>
-                    <div class="service-price">
-                        <span class="price">€{{price.monthly}}</span>
-                        <span class="period">/mois</span>
-                    </div>
-                    <div class="service-features">
-                        {{#each features}}
-                            {{#if included}}
-                                <div class="feature-item included">
-                                    <i class="fas fa-check"></i>
-                                    <span>{{name}}</span>
-                                </div>
-                            {{/if}}
-                        {{/each}}
-                    </div>
-                    <div class="service-actions">
-                        <a href="/services/{{slug}}" class="btn btn-primary">En savoir plus</a>
-                    </div>
-                </div>
-            {{/each}}
-        </div>
-        <div class="text-center">
-            <a href="/services" class="btn btn-outline btn-large">
-                <i class="fas fa-th-large"></i> Voir tous les services
-            </a>
-        </div>
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Our Hosting Plans</h2>
+      <p class="section-subtitle">
+        Choose the perfect plan for your needs, from personal blogs to enterprise applications
+      </p>
     </div>
+    
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-header">
+          <div class="service-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <h3 class="service-title">Starter Hosting</h3>
+          <p class="service-description">Perfect for beginners and small websites</p>
+        </div>
+        
+        <div class="service-price">
+          <div class="price-main">
+            <span class="price">€4.99</span>
+            <span class="period">/month</span>
+          </div>
+          <div class="price-yearly">
+            <span class="price">€49.99</span>
+            <span class="period">/year</span>
+            <span class="discount">Save 17%</span>
+          </div>
+        </div>
+        
+        <div class="service-features">
+          <ul>
+            <li><i class="fas fa-check"></i> 1 Website</li>
+            <li><i class="fas fa-check"></i> 10 GB SSD Storage</li>
+            <li><i class="fas fa-check"></i> 100 GB Bandwidth</li>
+            <li><i class="fas fa-check"></i> Free SSL Certificate</li>
+            <li><i class="fas fa-check"></i> Daily Backups</li>
+            <li><i class="fas fa-check"></i> Email Support</li>
+          </ul>
+        </div>
+        
+        <div class="service-action">
+          <a href="/services" class="btn btn-outline">View Details</a>
+          <button class="btn btn-primary" onclick="orderService('starter')">
+            Get Started
+          </button>
+        </div>
+      </div>
+
+      <div class="service-card popular">
+        <div class="popular-badge">
+          <i class="fas fa-star"></i> Most Popular
+        </div>
+        
+        <div class="service-header">
+          <div class="service-icon">
+            <i class="fas fa-rocket"></i>
+          </div>
+          <h3 class="service-title">Professional Hosting</h3>
+          <p class="service-description">Ideal for growing businesses and e-commerce</p>
+        </div>
+        
+        <div class="service-price">
+          <div class="price-main">
+            <span class="price">€9.99</span>
+            <span class="period">/month</span>
+          </div>
+          <div class="price-yearly">
+            <span class="price">€99.99</span>
+            <span class="period">/year</span>
+            <span class="discount">Save 17%</span>
+          </div>
+        </div>
+        
+        <div class="service-features">
+          <ul>
+            <li><i class="fas fa-check"></i> 5 Websites</li>
+            <li><i class="fas fa-check"></i> 50 GB SSD Storage</li>
+            <li><i class="fas fa-check"></i> 500 GB Bandwidth</li>
+            <li><i class="fas fa-check"></i> Wildcard SSL</li>
+            <li><i class="fas fa-check"></i> Real-time Backups</li>
+            <li><i class="fas fa-check"></i> Priority Support</li>
+            <li><i class="fas fa-check"></i> Free Domain</li>
+          </ul>
+        </div>
+        
+        <div class="service-action">
+          <a href="/services" class="btn btn-outline">View Details</a>
+          <button class="btn btn-primary" onclick="orderService('professional')">
+            Get Started
+          </button>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-header">
+          <div class="service-icon">
+            <i class="fas fa-server"></i>
+          </div>
+          <h3 class="service-title">VPS Hosting</h3>
+          <p class="service-description">Full control with dedicated resources</p>
+        </div>
+        
+        <div class="service-price">
+          <div class="price-main">
+            <span class="price">€29.99</span>
+            <span class="period">/month</span>
+          </div>
+          <div class="price-yearly">
+            <span class="price">€299.99</span>
+            <span class="period">/year</span>
+            <span class="discount">Save 17%</span>
+          </div>
+        </div>
+        
+        <div class="service-features">
+          <ul>
+            <li><i class="fas fa-check"></i> 2 vCPU Cores</li>
+            <li><i class="fas fa-check"></i> 4 GB RAM</li>
+            <li><i class="fas fa-check"></i> 80 GB SSD Storage</li>
+            <li><i class="fas fa-check"></i> 2 TB Bandwidth</li>
+            <li><i class="fas fa-check"></i> Root Access</li>
+            <li><i class="fas fa-check"></i> Dedicated IP</li>
+            <li><i class="fas fa-check"></i> Full Management</li>
+          </ul>
+        </div>
+        
+        <div class="service-action">
+          <a href="/services" class="btn btn-outline">View Details</a>
+          <button class="btn btn-primary" onclick="orderService('vps')">
+            Get Started
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="services-cta">
+      <h3>Need a custom solution?</h3>
+      <p>We offer tailored hosting solutions for enterprise clients</p>
+      <a href="/contact" class="btn btn-secondary">
+        <i class="fas fa-phone"></i> Contact Sales
+      </a>
+    </div>
+  </div>
 </section>
 
+<!-- Stats Section -->
 <section class="stats">
-    <div class="container">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-number">99.9%</div>
-                <div class="stat-label">Uptime Garanti</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">24/7</div>
-                <div class="stat-label">Support Technique</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">5000+</div>
-                <div class="stat-label">Clients Satisfaits</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">15</div>
-                <div class="stat-label">Années d'Expérience</div>
-            </div>
+  <div class="container">
+    <div class="stats-content">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number" data-target="1247">0</div>
+          <div class="stat-label">Happy Customers</div>
         </div>
+        
+        <div class="stat-item">
+          <div class="stat-number" data-target="3892">0</div>
+          <div class="stat-label">Websites Hosted</div>
+        </div>
+        
+        <div class="stat-item">
+          <div class="stat-number" data-target="999">0</div>
+          <div class="stat-label">Servers Online</div>
+        </div>
+        
+        <div class="stat-item">
+          <div class="stat-number" data-target="99">0</div>
+          <div class="stat-label">% Uptime</div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<section class="cta">
-    <div class="container">
-        <div class="cta-content">
-            <h2>Prêt à démarrer votre projet ?</h2>
-            <p>Rejoignez des milliers de clients qui nous font confiance pour leur hébergement web</p>
-            <div class="cta-actions">
-                <a href="/register" class="btn btn-primary btn-large">
-                    <i class="fas fa-rocket"></i> Commencer maintenant
-                </a>
-                <a href="/contact" class="btn btn-outline btn-large">
-                    <i class="fas fa-phone"></i> Nous contacter
-                </a>
-            </div>
-        </div>
+<!-- Testimonials -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">What Our Customers Say</h2>
+      <p class="section-subtitle">
+        Join thousands of satisfied customers who trust CraftPick Hosting
+      </p>
     </div>
+    
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          <div class="testimonial-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">
+            "CraftPick Hosting has been amazing for our e-commerce store. The speed is incredible and support is always there when we need them."
+          </p>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="author-info">
+            <h4>Sarah Johnson</h4>
+            <p>E-commerce Store Owner</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          <div class="testimonial-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">
+            "The best hosting service I've ever used. Fast, reliable, and the customer support is exceptional. Highly recommended!"
+          </p>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="author-info">
+            <h4>Michael Chen</h4>
+            <p>Web Developer</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          <div class="testimonial-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">
+            "We migrated our entire business to CraftPick Hosting and couldn't be happier. The uptime is perfect and performance is outstanding."
+          </p>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="author-info">
+            <h4>David Martinez</h4>
+            <p>CEO, TechCorp</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
+<!-- CTA Section -->
+<section class="cta">
+  <div class="container">
+    <div class="cta-content">
+      <h2 class="cta-title">Ready to Get Started?</h2>
+      <p class="cta-subtitle">
+        Join thousands of satisfied customers and take your website to the next level
+      </p>
+      <div class="cta-actions">
+        <a href="/register" class="btn btn-primary btn-lg">
+          <i class="fas fa-rocket"></i> Start Free Trial
+        </a>
+        <a href="/services" class="btn btn-outline btn-lg">
+          <i class="fas fa-info-circle"></i> Learn More
+        </a>
+      </div>
+      <div class="cta-features">
+        <div class="cta-feature">
+          <i class="fas fa-check-circle"></i>
+          <span>30-day money-back guarantee</span>
+        </div>
+        <div class="cta-feature">
+          <i class="fas fa-check-circle"></i>
+          <span>No setup fees</span>
+        </div>
+        <div class="cta-feature">
+          <i class="fas fa-check-circle"></i>
+          <span>Instant setup</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* Hero Section Styles */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--spacing-2xl);
+}
+
+.hero-graphic {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.server-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 2rem;
+  box-shadow: var(--shadow-glow);
+  animation: pulse 2s infinite;
+}
+
+.data-flow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.data-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--primary);
+  border-radius: var(--radius-full);
+  animation: dataFlow 3s infinite;
+}
+
+.data-particle:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.data-particle:nth-child(2) {
+  top: 70%;
+  left: 20%;
+  animation-delay: 0.5s;
+}
+
+.data-particle:nth-child(3) {
+  top: 30%;
+  right: 15%;
+  animation-delay: 1s;
+}
+
+.data-particle:nth-child(4) {
+  bottom: 25%;
+  right: 10%;
+  animation-delay: 1.5s;
+}
+
+@keyframes dataFlow {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* Services Preview Styles */
+.services-preview {
+  padding: var(--spacing-4xl) 0;
+  background: var(--white);
+}
+
+.service-card {
+  position: relative;
+  background: var(--white);
+  border: 2px solid var(--gray-lighter);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-2xl);
+  transition: all var(--transition-normal);
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-2xl);
+  border-color: var(--primary-light);
+}
+
+.service-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.service-icon {
+  width: 70px;
+  height: 70px;
+  background: var(--gradient-secondary);
+  border-radius: var(--radius-2xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--spacing-lg);
+  font-size: 1.75rem;
+  color: var(--white);
+}
+
+.service-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-sm);
+  color: var(--dark);
+}
+
+.service-description {
+  color: var(--gray);
+  margin-bottom: 0;
+}
+
+.service-price {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.price-yearly {
+  margin-top: var(--spacing-sm);
+}
+
+.discount {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--success);
+  font-weight: 600;
+  margin-top: var(--spacing-xs);
+}
+
+.service-features ul {
+  list-style: none;
+  margin-bottom: var(--spacing-xl);
+}
+
+.service-features li {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) 0;
+  color: var(--gray);
+}
+
+.service-features i {
+  color: var(--success);
+  font-size: 0.875rem;
+}
+
+.service-action {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.services-cta {
+  text-align: center;
+  margin-top: var(--spacing-3xl);
+  padding: var(--spacing-2xl);
+  background: var(--lighter);
+  border-radius: var(--radius-xl);
+}
+
+.services-cta h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-sm);
+  color: var(--dark);
+}
+
+.services-cta p {
+  color: var(--gray);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Testimonials Styles */
+.testimonials {
+  padding: var(--spacing-4xl) 0;
+  background: var(--light);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--spacing-2xl);
+}
+
+.testimonial-card {
+  background: var(--white);
+  padding: var(--spacing-2xl);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gray-lighter);
+  transition: all var(--transition-normal);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.testimonial-rating {
+  display: flex;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-lg);
+  color: var(--accent);
+}
+
+.testimonial-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--gray);
+  margin-bottom: var(--spacing-xl);
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.author-avatar {
+  width: 50px;
+  height: 50px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.author-info h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.author-info p {
+  font-size: 0.875rem;
+  color: var(--gray);
+  margin: 0;
+}
+
+/* CTA Features */
+.cta-features {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
+  flex-wrap: wrap;
+}
+
+.cta-feature {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--white);
+  font-size: 0.875rem;
+}
+
+.cta-feature i {
+  color: var(--success);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-content {
+    text-align: center;
+  }
+  
+  .hero-visual {
+    margin-top: var(--spacing-xl);
+  }
+  
+  .hero-graphic {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .service-action {
+    flex-direction: column;
+  }
+  
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cta-features {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+}
+</style>
+
+<script>
+// Home page JavaScript
+function orderService(planType) {
+  window.craftpick?.showNotification(`Redirecting to ${planType} plan...`, 'info');
+  
+  // Simulate redirect
+  setTimeout(() => {
+    window.location.href = `/services?plan=${planType}`;
+  }, 1000);
+}
+
+// Animate stats on scroll
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const statNumbers = entry.target.querySelectorAll('.stat-number');
+      statNumbers.forEach(stat => {
+        const target = parseInt(stat.dataset.target);
+        animateNumber(stat, target);
+      });
+      statsObserver.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+// Observe stats section
+document.addEventListener('DOMContentLoaded', () => {
+  const statsSection = document.querySelector('.stats');
+  if (statsSection) {
+    statsObserver.observe(statsSection);
+  }
+});
+
+function animateNumber(element, target) {
+  const duration = 2000;
+  const start = 0;
+  const increment = target / (duration / 16);
+  let current = start;
+  
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) {
+      current = target;
+      clearInterval(timer);
+    }
+    
+    element.textContent = Math.floor(current).toLocaleString();
+  }, 16);
+}
+</script>

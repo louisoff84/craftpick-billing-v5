@@ -5,10 +5,28 @@ const User = require('../models/User');
 const Service = require('../models/Service');
 const Subscription = require('../models/Subscription');
 const Invoice = require('../models/Invoice');
-const { webAuth } = require('../middleware/auth');
+const { validateSession } = require('../middleware/auth');
 
-// Apply webAuth middleware to all client routes
-router.use(webAuth);
+// Apply session validation middleware to all client routes
+router.use(validateSession);
+
+// Minecraft Servers Page
+router.get('/minecraft-servers', (req, res) => {
+  res.render('client/minecraft-servers', {
+    title: 'Serveurs Minecraft',
+    metaDescription: 'Gérez vos serveurs Minecraft avec Pterodactyl',
+    user: req.session.user || { firstName: 'User' }
+  });
+});
+
+// Web Hosting Page
+router.get('/web-hosting', (req, res) => {
+  res.render('client/web-hosting', {
+    title: 'Hébergement Web',
+    metaDescription: 'Gérez vos hébergements web avec Plesk',
+    user: req.session.user || { firstName: 'User' }
+  });
+});
 
 // Dashboard
 router.get('/dashboard', async (req, res) => {
