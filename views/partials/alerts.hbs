@@ -1,0 +1,49 @@
+{{#if success}}
+    <div class="alert alert-success">
+        <i class="fas fa-check-circle"></i>
+        <span>{{success}}</span>
+        <button class="alert-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+{{/if}}
+
+{{#if error}}
+    <div class="alert alert-danger">
+        <i class="fas fa-exclamation-circle"></i>
+        <span>{{error}}</span>
+        <button class="alert-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+{{/if}}
+
+{{#if warning}}
+    <div class="alert alert-warning">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>{{warning}}</span>
+        <button class="alert-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+{{/if}}
+
+{{#if info}}
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i>
+        <span>{{info}}</span>
+        <button class="alert-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+{{/if}}
+
+{{#each errors}}
+    <div class="alert alert-danger">
+        <i class="fas fa-exclamation-circle"></i>
+        <span>{{msg}}</span>
+        <button class="alert-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+{{/each}}

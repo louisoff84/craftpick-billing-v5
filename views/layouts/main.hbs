@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} - CraftPick Hosting</title>
+    <meta name="description" content="{{metaDescription}}">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="/" class="logo">
+                    <i class="fas fa-server"></i>
+                    <span>CraftPick Hosting</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-links">
+                    <li><a href="/" class="nav-link">Accueil</a></li>
+                    <li><a href="/services" class="nav-link">Services</a></li>
+                    <li><a href="/about" class="nav-link">À Propos</a></li>
+                    <li><a href="/contact" class="nav-link">Contact</a></li>
+                </ul>
+                
+                <div class="nav-auth">
+                    {{#if user}}
+                        <div class="user-menu">
+                            <button class="user-btn" onclick="toggleUserMenu()">
+                                <i class="fas fa-user"></i>
+                                {{user.firstName}}
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="user-dropdown" id="userDropdown">
+                                <a href="/client/dashboard">
+                                    <i class="fas fa-tachometer-alt"></i> Tableau de bord
+                                </a>
+                                <a href="/client/profile">
+                                    <i class="fas fa-user-cog"></i> Profil
+                                </a>
+                                <a href="/client/services">
+                                    <i class="fas fa-server"></i> Mes Services
+                                </a>
+                                <a href="/client/invoices">
+                                    <i class="fas fa-file-invoice"></i> Factures
+                                </a>
+                                <hr>
+                                <a href="/auth/logout" class="logout-btn">
+                                    <i class="fas fa-sign-out-alt"></i> Déconnexion
+                                </a>
+                            </div>
+                        </div>
+                    {{else}}
+                        <a href="/login" class="btn btn-outline">Connexion</a>
+                        <a href="/register" class="btn btn-primary">Inscription</a>
+                    {{/if}}
+                </div>
+            </div>
+            
+            <button class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Alerts -->
+    {{> alerts}}
+
+    <!-- Main Content -->
+    <main>
+        {{{body}}}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-server"></i>
+                        <span>CraftPick Hosting</span>
+                    </div>
+                    <p>Votre partenaire de confiance pour tous vos besoins d'hébergement web.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="/services">Hébergement Web</a></li>
+                        <li><a href="/services">Serveurs VPS</a></li>
+                        <li><a href="/services">Serveurs Dédiés</a></li>
+                        <li><a href="/services">Noms de Domaine</a></li>
+                        <li><a href="/services">Certificats SSL</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Entreprise</h4>
+                    <ul>
+                        <li><a href="/about">À Propos</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Carrières</a></li>
+                        <li><a href="#">Partenaires</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Centre d'aide</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Tickets</a></li>
+                        <li><a href="#">Statut du service</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 CraftPick Hosting. Tous droits réservés.</p>
+                <div class="footer-links">
+                    <a href="#">Mentions légales</a>
+                    <a href="#">Confidentialité</a>
+                    <a href="#">CGV</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/js/main.js"></script>
+</body>
+</html>

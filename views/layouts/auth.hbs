@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} - CraftPick Hosting</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo">
+                    <i class="fas fa-server"></i>
+                    <span>CraftPick Hosting</span>
+                </div>
+                <h1>{{title}}</h1>
+                <p class="auth-subtitle">
+                    {{#if (eq title "Connexion")}}
+                        Connectez-vous à votre compte
+                    {{else}}
+                        Créez votre compte gratuitement
+                    {{/if}}
+                </p>
+            </div>
+            
+            {{{body}}}
+            
+            <div class="auth-footer">
+                {{#if (eq title "Connexion")}}
+                    <p>Pas encore de compte ? <a href="/register">S'inscrire</a></p>
+                    <p><a href="/forgot-password">Mot de passe oublié ?</a></p>
+                {{else}}
+                    <p>Déjà un compte ? <a href="/login">Se connecter</a></p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/auth.js"></script>
+</body>
+</html>

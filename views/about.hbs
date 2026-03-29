@@ -1,0 +1,305 @@
+<div class="page-header">
+    <div class="container">
+        <h1>{{aboutPage.title}}</h1>
+        <p>Découvrez l'histoire et les valeurs de CraftPick Hosting</p>
+    </div>
+</div>
+
+<section class="about-section">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>Notre Histoire</h2>
+                <p>{{aboutPage.content}}</p>
+                <p>Fondée en 2024, CraftPick Hosting est née d'une passion simple : fournir des solutions d'hébergement web fiables, performantes et accessibles à tous. Notre équipe d'experts passionnés travaille sans relâche pour offrir la meilleure expérience possible à nos clients.</p>
+                
+                <h3>Nos Valeurs</h3>
+                <div class="values-grid">
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Sécurité</h4>
+                        <p>La sécurité de vos données est notre priorité absolue</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <h4>Performance</h4>
+                        <p>Des infrastructures de pointe pour des performances optimales</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4>Support</h4>
+                        <p>Une équipe disponible 24/7 pour vous accompagner</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h4>Écologie</h4>
+                        <p>Des solutions d'hébergement respectueuses de l'environnement</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="about-stats">
+                <div class="stat-card">
+                    <div class="stat-number">5000+</div>
+                    <div class="stat-label">Clients Satisfaits</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Uptime Garanti</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support Technique</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Ans d'Expérience</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="team-section">
+    <div class="container">
+        <h2 class="section-title">Notre Équipe</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>Jean Martin</h3>
+                <p class="member-role">CEO & Fondateur</p>
+                <p class="member-bio">Expert en infrastructure cloud avec 15 ans d'expérience</p>
+                <div class="member-social">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>Sophie Dubois</h3>
+                <p class="member-role">CTO</p>
+                <p class="member-bio">Spécialiste en optimisation de performance et sécurité</p>
+                <div class="member-social">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>Thomas Bernard</h3>
+                <p class="member-role">Head of Support</p>
+                <p class="member-bio">Passionné par l'aide aux clients et la résolution de problèmes</p>
+                <div class="member-social">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.page-header {
+    background: var(--gradient-primary);
+    color: var(--white);
+    padding: var(--spacing-3xl) 0;
+    text-align: center;
+}
+
+.about-section {
+    padding: var(--spacing-3xl) 0;
+    background: var(--light);
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-3xl);
+    align-items: start;
+}
+
+.about-text h2 {
+    margin-bottom: var(--spacing-lg);
+    color: var(--dark);
+}
+
+.about-text h3 {
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
+    color: var(--dark);
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.value-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.value-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--gradient-primary);
+    color: var(--white);
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+}
+
+.value-item h4 {
+    margin-bottom: var(--spacing-sm);
+    color: var(--dark);
+    font-size: 1rem;
+}
+
+.value-item p {
+    color: var(--gray);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+}
+
+.stat-card {
+    background: var(--white);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    border-left: 4px solid var(--primary-color);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.stat-label {
+    color: var(--gray);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.team-section {
+    padding: var(--spacing-3xl) 0;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+.team-member {
+    background: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-normal);
+}
+
+.team-member:hover {
+    transform: translateY(-4px);
+}
+
+.member-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    background: var(--gradient-primary);
+    color: var(--white);
+    border-radius: var(--radius-full);
+    margin: 0 auto var(--spacing-lg);
+    font-size: 1.5rem;
+}
+
+.team-member h3 {
+    margin-bottom: var(--spacing-sm);
+    color: var(--dark);
+}
+
+.member-role {
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-bottom: var(--spacing-md);
+}
+
+.member-bio {
+    color: var(--gray);
+    font-size: 0.875rem;
+    margin-bottom: var(--spacing-lg);
+}
+
+.member-social {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+
+.member-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background: var(--light);
+    color: var(--gray);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.member-social a:hover {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+@media (max-width: 768px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+    }
+    
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>

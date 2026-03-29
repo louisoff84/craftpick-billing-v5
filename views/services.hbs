@@ -1,0 +1,168 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Nos Services d'Hébergement</h1>
+        <p>Des solutions adaptées à tous les besoins et budgets</p>
+    </div>
+</div>
+
+<section class="services-section">
+    <div class="container">
+        <div class="services-filter">
+            <button class="filter-btn active" data-filter="all">Tous les services</button>
+            <button class="filter-btn" data-filter="web_hosting">Hébergement Web</button>
+            <button class="filter-btn" data-filter="vps">Serveurs VPS</button>
+            <button class="filter-btn" data-filter="dedicated">Serveurs Dédiés</button>
+            <button class="filter-btn" data-filter="domain">Noms de Domaine</button>
+            <button class="filter-btn" data-filter="ssl">Certificats SSL</button>
+        </div>
+        
+        <div class="services-grid">
+            {{#each services}}
+                <div class="service-card" data-type="{{type}}">
+                    {{#if isPopular}}
+                        <div class="popular-badge">
+                            <i class="fas fa-star"></i> Populaire
+                        </div>
+                    {{/if}}
+                    
+                    <div class="service-header">
+                        <div class="service-icon">
+                            {{#if (eq type "web_hosting")}}
+                                <i class="fas fa-globe"></i>
+                            {{else if (eq type "vps")}}
+                                <i class="fas fa-server"></i>
+                            {{else if (eq type "dedicated")}}
+                                <i class="fas fa-server"></i>
+                            {{else if (eq type "domain")}}
+                                <i class="fas fa-globe"></i>
+                            {{else if (eq type "ssl")}}
+                                <i class="fas fa-lock"></i>
+                            {{else}}
+                                <i class="fas fa-cube"></i>
+                            {{/if}}
+                        </div>
+                        <h3>{{name}}</h3>
+                        <p class="service-description">{{description}}</p>
+                    </div>
+                    
+                    <div class="service-price">
+                        <div class="price-main">
+                            <span class="price">€{{price.monthly}}</span>
+                            <span class="period">/mois</span>
+                        </div>
+                        {{#if price.yearly}}
+                            <div class="price-yearly">
+                                <span class="price">€{{price.yearly}}</span>
+                                <span class="period">/an</span>
+                                <span class="discount">Économisez {{math (multiply price.monthly 12) price.yearly}}€</span>
+                            </div>
+                        {{/if}}
+                    </div>
+                    
+                    <div class="service-features">
+                        <ul>
+                            {{#each features}}
+                                <li class="{{#if included}}included{{else}}not-included{{/if}}">
+                                    <i class="fas fa-{{#if included}}check{{else}}times{{/if}}"></i>
+                                    <span>{{name}}</span>
+                                </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    
+                    <div class="service-specs">
+                        {{#if specifications.cpu}}
+                            <div class="spec-item">
+                                <i class="fas fa-microchip"></i>
+                                <span>CPU: {{specifications.cpu}}</span>
+                            </div>
+                        {{/if}}
+                        {{#if specifications.ram}}
+                            <div class="spec-item">
+                                <i class="fas fa-memory"></i>
+                                <span>RAM: {{specifications.ram}}</span>
+                            </div>
+                        {{/if}}
+                        {{#if specifications.storage}}
+                            <div class="spec-item">
+                                <i class="fas fa-hdd"></i>
+                                <span>Stockage: {{specifications.storage}}</span>
+                            </div>
+                        {{/if}}
+                        {{#if specifications.bandwidth}}
+                            <div class="spec-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Bande passante: {{specifications.bandwidth}}</span>
+                            </div>
+                        {{/if}}
+                    </div>
+                    
+                    <div class="service-actions">
+                        <a href="/services/{{slug}}" class="btn btn-outline">Détails</a>
+                        <button class="btn btn-primary" onclick="orderService('{{_id}}')">
+                            <i class="fas fa-shopping-cart"></i> Commander
+                        </button>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+        
+        {{#if (eq services.length 0)}}
+            <div class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <h3>Aucun service disponible</h3>
+                <p>Revenez bientôt pour découvrir nos nouvelles offres</p>
+            </div>
+        {{/if}}
+    </div>
+</section>
+
+<section class="comparison">
+    <div class="container">
+        <h2 class="section-title">Comparaison des Services</h2>
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Caractéristiques</th>
+                        {{#each services}}
+                            <th>{{name}}</th>
+                        {{/each}}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prix mensuel</td>
+                        {{#each services}}
+                            <td>€{{price.monthly}}/mois</td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        <td>Stockage</td>
+                        {{#each services}}
+                            <td>{{specifications.storage}}</td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        <td>Bande passante</td>
+                        {{#each services}}
+                            <td>{{specifications.bandwidth}}</td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        <td>Noms de domaine</td>
+                        {{#each services}}
+                            <td>{{specifications.domains}}</td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        <td>Support</td>
+                        {{#each services}}
+                            <td>{{specifications.support}}</td>
+                        {{/each}}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

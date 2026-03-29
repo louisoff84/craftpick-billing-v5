@@ -1,0 +1,147 @@
+<div class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">{{#if homePage.title}}{{homePage.title}}{{else}}Hébergement Web Fiable et Performant{{/if}}</h1>
+            <p class="hero-subtitle">{{#if homePage.content}}{{homePage.excerpt}}{{else}}Des solutions d'hébergement adaptées à tous vos besoins, du site personnel aux applications d'entreprise{{/if}}</p>
+            <div class="hero-actions">
+                <a href="/services" class="btn btn-primary btn-large">
+                    <i class="fas fa-rocket"></i> Découvrir nos services
+                </a>
+                <a href="/register" class="btn btn-outline btn-large">
+                    <i class="fas fa-user-plus"></i> Commencer gratuitement
+                </a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <i class="fas fa-server"></i>
+        </div>
+    </div>
+</div>
+
+<section class="features">
+    <div class="container">
+        <h2 class="section-title">Pourquoi nous choisir ?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h3>Performance Maximale</h3>
+                <p>Infrastructure de pointe avec SSD NVMe et processeurs de dernière génération</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Sécurité Renforcée</h3>
+                <p>Protection DDoS, SSL gratuit et surveillance 24/7 de vos services</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>Support Expert</h3>
+                <p>Équipe technique disponible 24/7 pour vous accompagner dans vos projets</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Scalabilité Illimitée</h3>
+                <p>Faites évoluer vos ressources en fonction de vos besoins sans interruption</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="services-preview">
+    <div class="container">
+        <h2 class="section-title">Nos Solutions d'Hébergement</h2>
+        <div class="services-grid">
+            {{#each services}}
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            {{#if (eq type "web_hosting")}}
+                                <i class="fas fa-globe"></i>
+                            {{else if (eq type "vps")}}
+                                <i class="fas fa-server"></i>
+                            {{else if (eq type "dedicated")}}
+                                <i class="fas fa-server"></i>
+                            {{else if (eq type "domain")}}
+                                <i class="fas fa-globe"></i>
+                            {{else if (eq type "ssl")}}
+                                <i class="fas fa-lock"></i>
+                            {{else}}
+                                <i class="fas fa-cube"></i>
+                            {{/if}}
+                        </div>
+                        <h3>{{name}}</h3>
+                    </div>
+                    <div class="service-price">
+                        <span class="price">€{{price.monthly}}</span>
+                        <span class="period">/mois</span>
+                    </div>
+                    <div class="service-features">
+                        {{#each features}}
+                            {{#if included}}
+                                <div class="feature-item included">
+                                    <i class="fas fa-check"></i>
+                                    <span>{{name}}</span>
+                                </div>
+                            {{/if}}
+                        {{/each}}
+                    </div>
+                    <div class="service-actions">
+                        <a href="/services/{{slug}}" class="btn btn-primary">En savoir plus</a>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+        <div class="text-center">
+            <a href="/services" class="btn btn-outline btn-large">
+                <i class="fas fa-th-large"></i> Voir tous les services
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">99.9%</div>
+                <div class="stat-label">Uptime Garanti</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Support Technique</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5000+</div>
+                <div class="stat-label">Clients Satisfaits</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15</div>
+                <div class="stat-label">Années d'Expérience</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Prêt à démarrer votre projet ?</h2>
+            <p>Rejoignez des milliers de clients qui nous font confiance pour leur hébergement web</p>
+            <div class="cta-actions">
+                <a href="/register" class="btn btn-primary btn-large">
+                    <i class="fas fa-rocket"></i> Commencer maintenant
+                </a>
+                <a href="/contact" class="btn btn-outline btn-large">
+                    <i class="fas fa-phone"></i> Nous contacter
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
