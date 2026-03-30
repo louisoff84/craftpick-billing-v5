@@ -60,7 +60,25 @@ const hbs = create({
   extname: '.hbs',
   defaultLayout: 'main',
   layoutsDir: path.join(__dirname, 'views/layouts'),
-  partialsDir: path.join(__dirname, 'views/partials')
+  partialsDir: path.join(__dirname, 'views/partials'),
+  helpers: {
+    eq: (a, b) => a === b,
+    neq: (a, b) => a !== b,
+    gt: (a, b) => a > b,
+    gte: (a, b) => a >= b,
+    lt: (a, b) => a < b,
+    lte: (a, b) => a <= b,
+    and: (a, b) => a && b,
+    or: (a, b) => a || b,
+    not: (a) => !a,
+    formatDate: (date) => new Date(date).toLocaleDateString(),
+    formatCurrency: (amount) => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(amount),
+    json: (obj) => JSON.stringify(obj),
+    upper: (str) => str ? str.toUpperCase() : '',
+    lower: (str) => str ? str.toLowerCase() : '',
+    capitalize: (str) => str ? str.charAt(0).toUpperCase() + str.slice(1) : '',
+    truncate: (str, length) => str ? str.substring(0, length) + (str.length > length ? '...' : '') : ''
+  }
 });
 
 app.engine('hbs', hbs.engine);
