@@ -15,7 +15,7 @@
     "mysql",
     "craftpick"
   ],
-  "author": "CraftPick Team",
+  "author": "Craftpick Team",
   "license": "MIT",
   "dependencies": {
     "axios": "^1.14.0",

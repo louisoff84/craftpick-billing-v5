@@ -1,0 +1,307 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "services": "Services",
+    "minecraft": "Serveurs Minecraft",
+    "hosting": "Hébergement Web",
+    "domains": "Domaines",
+    "about": "À propos",
+    "contact": "Contact",
+    "login": "Connexion",
+    "register": "Inscription",
+    "dashboard": "Tableau de bord",
+    "logout": "Déconnexion",
+    "profile": "Profil",
+    "admin": "Administration"
+  },
+  "hero": {
+    "title": "Hébergement Premium",
+    "subtitle": "Serveurs performants pour votre succès",
+    "description": "Découvrez nos solutions d'hébergement haute performance avec support 24/7 et garantie de disponibilité",
+    "cta_primary": "Commencer maintenant",
+    "cta_secondary": "Voir les prix"
+  },
+  "features": {
+    "title": "Pourquoi nous choisir ?",
+    "uptime": {
+      "title": "99.9% Uptime",
+      "desc": "Garantie de disponibilité avec compensation"
+    },
+    "support": {
+      "title": "Support 24/7",
+      "desc": "Assistance technique à tout moment"
+    },
+    "security": {
+      "title": "Sécurité maximale",
+      "desc": "Protection DDoS et SSL gratuit"
+    },
+    "performance": {
+      "title": "Performance optimale",
+      "desc": "SSD NVMe et processeurs dernier cri"
+    }
+  },
+  "services": {
+    "title": "Nos Services",
+    "web": {
+      "title": "Hébergement Web",
+      "desc": "Hébergement rapide et fiable pour vos sites web"
+    },
+    "minecraft": {
+      "title": "Serveurs Minecraft",
+      "desc": "Serveurs de jeu optimisés avec panel de contrôle"
+    },
+    "vps": {
+      "title": "VPS Cloud",
+      "desc": "Serveurs virtuels privés scalables"
+    },
+    "domain": {
+      "title": "Noms de domaine",
+      "desc": "Enregistrement et gestion de domaines"
+    }
+  },
+  "pricing": {
+    "title": "Nos Tarifs",
+    "starter": {
+      "name": "Débutant",
+      "price": "2.99€",
+      "period": "/mois",
+      "features": [
+        "1 Site web",
+        "10 Go SSD",
+        "Certificat SSL",
+        "Support email"
+      ]
+    },
+    "pro": {
+      "name": "Professionnel",
+      "price": "9.99€",
+      "period": "/mois",
+      "popular": "Le plus populaire",
+      "features": [
+        "Sites illimités",
+        "50 Go SSD NVMe",
+        "SSL Premium",
+        "Support 24/7",
+        "Backup quotidien"
+      ]
+    },
+    "enterprise": {
+      "name": "Entreprise",
+      "price": "29.99€",
+      "period": "/mois",
+      "features": [
+        "Sites illimités",
+        "200 Go SSD NVMe",
+        "SSL Wildcard",
+        "Support prioritaire",
+        "Backup temps réel",
+        "CDN mondial"
+      ]
+    }
+  },
+  "minecraft_servers": {
+    "title": "Serveurs Minecraft",
+    "subtitle": "Gérez vos serveurs Minecraft avec Pterodactyl",
+    "total_servers": "Serveurs Total",
+    "online": "En Ligne",
+    "offline": "Hors Ligne",
+    "ram_used": "RAM Utilisée",
+    "create_server": "Nouveau Serveur",
+    "search": "Rechercher un serveur...",
+    "status": "Statut",
+    "type": "Type",
+    "actions": {
+      "start": "Démarrer",
+      "stop": "Arrêter",
+      "restart": "Redémarrer",
+      "console": "Console",
+      "backups": "Sauvegardes"
+    },
+    "console": {
+      "title": "Console du Serveur",
+      "placeholder": "Entrez une commande...",
+      "send": "Envoyer"
+    },
+    "backups": {
+      "title": "Sauvegardes",
+      "create": "Nouvelle Sauvegarde",
+      "download": "Télécharger",
+      "delete": "Supprimer"
+    },
+    "details": {
+      "general": "Informations Générales",
+      "resources": "Ressources",
+      "actions": "Actions Rapides",
+      "name": "Nom",
+      "uuid": "UUID",
+      "status": "Statut",
+      "node": "Node",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "storage": "Stockage"
+    }
+  },
+  "web_hosting": {
+    "title": "Hébergement Web",
+    "subtitle": "Gérez vos hébergements web avec Plesk",
+    "total_hosting": "Hébergements Total",
+    "active": "Actifs",
+    "databases": "Bases de Données",
+    "emails": "Comptes Email",
+    "create_hosting": "Nouvel Hébergement",
+    "search": "Rechercher un hébergement...",
+    "domain": "Domaine",
+    "ip": "Adresse IP",
+    "services": {
+      "php": "PHP",
+      "ssl": "SSL",
+      "ftp": "FTP",
+      "email": "Email"
+    },
+    "actions": {
+      "domains": "Domaines",
+      "databases": "Bases de Données",
+      "emails": "Emails",
+      "ssl": "Certificats SSL",
+      "backups": "Sauvegardes",
+      "stats": "Statistiques"
+    },
+    "resources": {
+      "disk": "Espace Disque",
+      "traffic": "Trafic"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Connexion",
+      "email": "Adresse email",
+      "password": "Mot de passe",
+      "remember": "Se souvenir de moi",
+      "forgot": "Mot de passe oublié ?",
+      "submit": "Se connecter",
+      "no_account": "Pas encore de compte ?",
+      "register": "S'inscrire"
+    },
+    "register": {
+      "title": "Inscription",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Adresse email",
+      "password": "Mot de passe",
+      "confirm_password": "Confirmer le mot de passe",
+      "phone": "Téléphone (optionnel)",
+      "agree": "J'accepte les conditions d'utilisation",
+      "submit": "Créer un compte",
+      "have_account": "Déjà un compte ?",
+      "login": "Se connecter"
+    },
+    "forgot": {
+      "title": "Mot de passe oublié",
+      "description": "Entrez votre email pour recevoir un lien de réinitialisation",
+      "email": "Adresse email",
+      "submit": "Envoyer le lien",
+      "back": "Retour à la connexion"
+    }
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Tableau de bord Admin",
+      "users": "Utilisateurs",
+      "services": "Services",
+      "orders": "Commandes",
+      "revenue": "Revenus",
+      "recent_orders": "Commandes récentes",
+      "top_services": "Services populaires"
+    },
+    "site_management": {
+      "title": "Gestion du Site",
+      "deploy": "Déployer",
+      "maintenance": "Maintenance",
+      "system_status": "État du Système",
+      "uptime": "Uptime",
+      "memory": "Mémoire",
+      "cpu": "CPU",
+      "config": "Configuration",
+      "apis": "APIs",
+      "backups": "Sauvegardes",
+      "logs": "Logs",
+      "services": "Services",
+      "cache": "Cache",
+      "maintenance_mode": "Mode Maintenance",
+      "maintenance_message": "Message Maintenance",
+      "debug_mode": "Mode Debug",
+      "save_config": "Sauvegarder",
+      "create_backup": "Créer une sauvegarde"
+    },
+    "users": {
+      "title": "Gestion des Utilisateurs",
+      "add": "Ajouter un utilisateur",
+      "search": "Rechercher...",
+      "name": "Nom",
+      "email": "Email",
+      "role": "Rôle",
+      "status": "Statut",
+      "actions": "Actions"
+    }
+  },
+  "common": {
+    "loading": "Chargement...",
+    "save": "Sauvegarder",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "create": "Créer",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "yes": "Oui",
+    "no": "Non",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "all": "Tous",
+    "active": "Actif",
+    "inactive": "Inactif",
+    "pending": "En attente",
+    "completed": "Terminé",
+    "failed": "Échoué",
+    "online": "En ligne",
+    "offline": "Hors ligne",
+    "error": "Erreur",
+    "success": "Succès",
+    "warning": "Attention",
+    "info": "Information"
+  },
+  "footer": {
+    "about": "À propos de CraftPick",
+    "description": "Votre partenaire d'hébergement web de confiance depuis 2024. Solutions performantes et support de qualité.",
+    "services": "Services",
+    "web_hosting": "Hébergement Web",
+    "minecraft": "Serveurs Minecraft",
+    "vps": "VPS Cloud",
+    "domains": "Noms de domaine",
+    "support": "Support",
+    "help_center": "Centre d'aide",
+    "documentation": "Documentation",
+    "status": "État des services",
+    "contact": "Contactez-nous",
+    "legal": "Légal",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "refund": "Politique de remboursement",
+    "social": "Suivez-nous",
+    "copyright": "© 2024 CraftPick Hosting. Tous droits réservés."
+  },
+  "errors": {
+    "404": {
+      "title": "Page non trouvée",
+      "message": "La page que vous recherchez n'existe pas ou a été déplacée."
+    },
+    "500": {
+      "title": "Erreur serveur",
+      "message": "Une erreur inattendue s'est produite. Veuillez réessayer plus tard."
+    },
+    "maintenance": {
+      "title": "Site en maintenance",
+      "message": "Nous effectuons actuellement des travaux de maintenance. Veuillez revenir plus tard."
+    }
+  }
+}
